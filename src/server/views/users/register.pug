@@ -2,28 +2,33 @@ extends ../shared/layout
 
 block main-content
     form(method="post")
-        label(for="email") E-mail
-        input(id="email" class="form-control" type="email" name="email" placeholder="E-mail")
-        br
-        label(for="username") Username
-        input(id="username" class="form-control" type="text" name="username" placeholder="Username")
-        br
-        label(for="password") Password
-        input(id="password" class="form-control" type="password" name="password" placeholder="Password")
-        br
-        label(for="confirm-password") Confirm Password
-        input(id="confirm-password" class="form-control" type="password" name="confirmPassword" placeholder="Confirm password")
-        br
-        label(for="first-name") First Name
-        input(id="first-name" class="form-control" type="text" name="firstName" placeholder="First Name")
-        br
-        label(for="last-name") Last Name
-        input(id="last-name" class="form-control" type="text" name="lastName" placeholder="Last Name")
-        br
-        label(for="phone-number") Phone Number
-        input(id="phone-number" class="form-control" type="text" name="phoneNumber" placeholder="Phone Number")
-        br
-        label(for="avatar") Avatar
-        input(id="avatar" class="form-control" type="text" name="avatar" placeholder="Avatar")
-        br
-        input(type="submit" class="btn btn-lg" value="Register")
+        div(class="col-md-offset-3 col-md-6")
+            label(for="username") Username
+            input(id="username" class="form-control" type="text" name="username" placeholder="Username")
+            br
+            label(for="password") Password
+            input(id="password" class="form-control" type="password" name="password" placeholder="Password")
+            br
+            label(for="confirm-password") Confirm Password
+            input(id="confirm-password" class="form-control" type="password" name="confirmPassword" placeholder="Confirm password")
+            br
+            label(for="email") E-mail
+            input(id="email" class="form-control" type="email" name="email" placeholder="E-mail")
+            br
+            label(for="first-name") First Name
+            input(id="first-name" class="form-control" type="text" name="firstName" placeholder="First Name")
+            br
+            label(for="last-name") Last Name
+            input(id="last-name" class="form-control" type="text" name="lastName" placeholder="Last Name")
+            br
+            label(for="faculty-number") Faculty number
+            input(id="faculty-number" class="form-control" type="text" name="facultyNumber" placeholder="Faculty number")
+            br
+            label(for="administrative-group") Group
+            input(id="administrative-group" class="form-control" type="number" name="administrativeGroup" placeholder="Administrative group")
+            br
+            label(for="current-course") Current course
+            input(id="current-course" class="form-control" type="number" min="1" max="5" value="1" name="currentCourse" placeholder="Current course")
+            br
+            input(type="submit" class="btn btn-lg" value="Register")
+            hr
