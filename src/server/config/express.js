@@ -36,10 +36,12 @@ module.exports = function (app, config) {
     app.use(function (req, res, next) {
         if (req.user) {
             app.locals.currentUser = req.user;
-            app.locals.isAdmin = req.user;
-            // TODO administration
+            if (req.user.accessLevel === 'administrator') {
+                app.locals.isAdmin = true;
+            }
         } else {
             app.locals.currentUser = undefined;
+            app.locals.isAdmin = undefined;
         }
 
         next();
