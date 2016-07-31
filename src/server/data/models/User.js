@@ -3,23 +3,27 @@
 
 var mongoose = require('mongoose'),
     encryption = require('../../utilities/encryption'),
-    requiredMessage = '{PATH} is required',
-    defaultAvatar = 'https://ninjageisha.files.wordpress.com/2012/08/ninja-tadaa.jpg';
+    requiredMessage = '{PATH} is required';
 
 module.exports.init = function () {
     var userSchema = mongoose.Schema({
-        username: { type: String, required: requiredMessage, unique: true },
+        // Core fields
+        username: { type: String, required: requiredMessage, unique: true, minlength: 5, maxlength: 20 },
         salt: String,
         hashPass: String,
-        firstName: { type: String, required: requiredMessage},
-        lastName: { type: String, required: requiredMessage},
-        phoneNumber: String,
-        email: { type: String, required: requiredMessage},
-        initiatives: [{
-            initiative: String,
-            season: String
-        }],
-        avatar: { type: String, 'default': defaultAvatar }
+        firstName: { type: String, minlength: 3, maxlength: 20, required: requiredMessage},
+        lastName: { type: String, minlength: 3, maxlength: 20, required: requiredMessage},
+        email: { type: String, set: toLower, unique: true, required: requiredMessage},
+        accessLevel: { type: String, default: 'student'},
+        // Education fields
+        facultyNumber: { type: String, required: requiredMessage, set: toLower, unique: true },
+        administrativeGroup: { type: Number, min: 10, max: 1000 },
+        currentCourse: {type: Number, min: 1, max: 6 },
+        courses: [{
+            name: { type: String, required: requiredMessage},
+            year: { type: String, required: requiredMessage},
+            points: {type: Number, min: 0, max: 100 }
+        }]
     });
 
     userSchema.method({
@@ -33,3 +37,7 @@ module.exports.init = function () {
 
     mongoose.model('User', userSchema);
 };
+
+function toLower(v) {
+    return v.toLowerCase();
+}
