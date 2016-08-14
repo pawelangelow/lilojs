@@ -4,7 +4,11 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    UserModel = require('../data/models/User');
+    UserModel = require('../data/models/User'),
+    ContestModel = require('../data/models/Contest'),
+    ProblemModel = require('../data/models/Problem'),
+    SubmissionModel = require('../data/models/Submission'),
+    TestModel = require('../data/models/Test');
 
 module.exports = function (config) {
     mongoose.connect(config.db);
@@ -24,4 +28,8 @@ module.exports = function (config) {
     });
 
     UserModel.init();
+    ContestModel.init();
+    ProblemModel.init();
+    SubmissionModel.init();
+    TestModel.init();
 };
