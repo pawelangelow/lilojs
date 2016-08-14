@@ -13,8 +13,8 @@ module.exports.init = function () {
         endDate: { type: Date, required: requiredMessage },
         canPractice: { type: Boolean, required: requiredMessage, default: true },
         isVisible: { type: Boolean, required: requiredMessage, default: false },
-        creator: { type: Schema.Types.ObjectID, ref: 'User' },
-        problems: [{ type: Schema.Types.ObjectID, ref: 'Problem' }]
+        creator: { type: Schema.Types.ObjectId, ref: 'User' },
+        problems: [{ type: Schema.Types.ObjectId, ref: 'Problem' }]
     });
     mongoose.model('Contest', contestSchema);
 };

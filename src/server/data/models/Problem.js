@@ -11,7 +11,7 @@ module.exports.init = function () {
         descriptionPath: { type: String, required: requiredMessage },
         weight: {type: Number },
         allowedLanguages: [{ type: String, required: requiredMessage }],
-        tests: [{ type: Schema.Types.ObjectID, ref: 'Test'}]
+        tests: [{ type: Schema.Types.ObjectId, ref: 'Test'}]
     });
     mongoose.model('Problem', problemSchema);
 };

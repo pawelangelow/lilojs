@@ -11,7 +11,7 @@ module.exports.init = function () {
         inputPath: { type: String },
         output: { type: String },
         outputPath: { type: String },
-        problem: { type: Schema.Types.ObjectID, ref: 'Problem'}
+        problem: { type: Schema.Types.ObjectId, ref: 'Problem'}
     });
     mongoose.model('Test', testSchema);
 };
