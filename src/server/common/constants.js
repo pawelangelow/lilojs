@@ -7,5 +7,8 @@ module.exports = {
         'Homework',
         'Exam',
         'Practice'
-    ]
+    ],
+    paging: {
+        contests: 30
+    }
 };
