@@ -2,5 +2,10 @@
 'use strict';
 
 module.exports = {
-    secretToken: 'thatIsSomethingBadHarry'
+    secretToken: 'thatIsSomethingBadHarry',
+    categories: [
+        'Homework',
+        'Exam',
+        'Practice'
+    ]
 };

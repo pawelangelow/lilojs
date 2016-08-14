@@ -4,14 +4,17 @@
 /*jslint nomen: true*/
 'use strict';
 
-var CONTROLLER_NAME = 'admin';
+var CONTROLLER_NAME = 'admin',
+    constants = require('../common/constants');
 
 module.exports = {
     getDashboard: function (req, res) {
         res.render(CONTROLLER_NAME + '/index');
     },
     getAddContest: function (req, res) {
-
+        res.render(CONTROLLER_NAME + '/addContest', {
+            categories: constants.categories
+        });
     },
     postAddContest: function (req, res) {
 

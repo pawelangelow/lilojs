@@ -1,0 +1,51 @@
+extends ../shared/layout
+
+block main-content
+    form(method="post")
+        div(class="col-md-offset-3 col-md-6")
+            label(for="title") Title*
+            input(id="title" name="title" class="form-control" type="text" placeholder="Enter the title of contest")
+
+            label(for="description") Description
+            textarea(id="title" name="title" class="form-control") Some description about contest. Not mandatory!
+
+            label(for="category") Category
+            select(id="category" class="form-control" name="category")
+                option(value="") Choose Category
+                each category in categories
+                    option(value="#{category}") #{category}
+
+            label(for="startDate") Start date*
+            input(id="startDate" name="startDate" class="form-control" type="text")
+
+            label(for="endDate") End date*
+            input(id="endDate" name="endDate" class="form-control" type="text")
+
+            label Can be practiced?
+            .radio
+              label
+                input(name='canPractice', value='true', checked='', type='radio')
+                |             Yes
+            .radio
+              label
+                input(name='canPractice', value='false', type='radio')
+                |             No
+
+            label Is it visible?
+            .radio
+              label
+                input(name='isVisible', value='true', type='radio')
+                |             Yes
+            .radio
+              label
+                input(name='isVisible', value='false', checked='', type='radio')
+                |             No
+
+            br
+            input(type="submit" class="btn btn-lg" value="Create")
+            hr
+
+block page-scripts
+    script.
+        $('#startDate').datetimepicker();
+        $('#endDate').datetimepicker();
