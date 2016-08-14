@@ -9,7 +9,8 @@ var express = require('express'),
     session = require('express-session'),
     busboy = require('connect-busboy'),
     passport = require('passport'),
-    constants = require('../common/constants');
+    constants = require('../common/constants'),
+    adminValidation = require('../utilities/adminValidation');
 
 module.exports = function (app, config) {
     app.set('view engine', 'pug');
@@ -36,7 +37,7 @@ module.exports = function (app, config) {
     app.use(function (req, res, next) {
         if (req.user) {
             app.locals.currentUser = req.user;
-            if (req.user.accessLevel === 'administrator') {
+            if (adminValidation.checkIsAdmin(req.user)) {
                 app.locals.isAdmin = true;
             }
         } else {
