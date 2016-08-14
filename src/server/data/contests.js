@@ -16,5 +16,39 @@ module.exports = {
         contest.creator = user;
 
         Contest.create(contest, callback);
+    },
+    list: function (options, callback) {
+        if (!options) {
+            callback('Error! Options are not provided!');
+        }
+
+        var page = options.page || 1,
+            pageSize = options.pageSize || constants.paging.contests,
+            notActive = options.notActive || true;
+
+        Contest
+            .find({ isVisible: notActive })
+            .sort({
+                date: 'desc'
+            })
+            .limit(pageSize)
+            .skip((page - 1) * pageSize)
+            .exec(function (err, foundContests) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+
+                Contest.count().exec(function (err, numberOfContests) {
+                    var data = {
+                        contests: foundContests,
+                        currentPage: page,
+                        pageSize: pageSize,
+                        total: numberOfContests
+                    };
+
+                    callback(err, data);
+                });
+            });
     }
 };
