@@ -20,18 +20,14 @@ html
               a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
                 | Contests
                 span.caret
-              ul.dropdown-menu(role='menu')
-                li
-                  a(href='#') First
-                li
-                  a(href='#') Second
-                li
-                  a(href='#') Third
-                li
-                  a(href='#') Fourth
-                li.divider
-                li
-                  a(href='#') All
+                ul.dropdown-menu(role='menu')
+                    each contest in locals.menuContests.contests
+                        li
+                            a(href='#') #{contest.title}
+                    li.divider
+                    li
+                        a(href='#') All
+
           ul.nav.navbar-nav.navbar-right
             if (isAdmin)
               li

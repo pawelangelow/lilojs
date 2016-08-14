@@ -6,9 +6,11 @@
 var auth = require('./auth'),
     controllers = require('../controllers'),
     adminValidation = require('../utilities/adminValidation'),
+    globals = require('./globals'),
     checkIsAdminMiddleware;
 
 module.exports = function (app) {
+    globals(app);
     app.get('/register', controllers.users.getRegister);
     app.post('/register', controllers.users.postRegister);
 
