@@ -1,8 +1,10 @@
 /*jslint node: true */
 'use strict';
 
-var UsersController = require('./UsersController');
+var UsersController = require('./UsersController'),
+    AdminController = require('./AdminController');
 
 module.exports = {
-    users: UsersController
+    users: UsersController,
+    admin: AdminController,
 };
