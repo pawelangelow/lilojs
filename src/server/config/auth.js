@@ -10,7 +10,8 @@ module.exports = {
                 return next(err);
             }
             if (!user) {
-                res.send({success: false});
+                req.session.error = 'Login is invalid!';
+                res.redirect('/login');
             }
 
             req.logIn(user, function (err) {
