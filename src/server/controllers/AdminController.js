@@ -5,7 +5,8 @@
 'use strict';
 
 var CONTROLLER_NAME = 'admin',
-    constants = require('../common/constants');
+    constants = require('../common/constants'),
+    contests = require('../data/contests');
 
 module.exports = {
     getDashboard: function (req, res) {
@@ -17,7 +18,21 @@ module.exports = {
         });
     },
     postAddContest: function (req, res) {
+        var contest = req.body,
+            user = req.user;
 
+        contests.create(contest, user,
+            function (err, event) {
+                if (err) {
+                    var data = {
+                        categories: constants.categories,
+                        errorMessage: err
+                    };
+                    res.render(CONTROLLER_NAME + '/addContest', data);
+                } else {
+                    res.redirect('/admin/contest/' + contest._id);
+                }
+            });
     },
     getAddProblem: function (req, res) {
 

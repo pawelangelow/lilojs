@@ -13,7 +13,7 @@ block main-content
             select(id="category" class="form-control" name="category")
                 option(value="") Choose Category
                 each category in categories
-                    option(value="#{category}") #{category}
+                    option(value=category) #{category}
 
             label(for="startDate") Start date*
             input(id="startDate" name="startDate" class="form-control" type="text")
