@@ -3,14 +3,16 @@
 /*jslint todo: true */
 'use strict';
 
-var express = require("express"),
+
+var async = require('async'),
+    express = require("express"),
     router = express.Router(),
-    async = require('async'),
     app = express(),
-    admin = require('./admin'),
     auth = require('../config/auth'),
     controllers = require('../controllers'),
-    globals = require('../config/globals');
+    globals = require('../config/globals'),
+    admin = require('./admin'),
+    contest = require('./contest');
 
 module.exports = router;
 
@@ -27,6 +29,7 @@ router.use(function (req, res, next) { //TODO: check if this is the best way
 });
 
 router.use('/admin', admin);
+router.use('/contest', contest);
 
 router.get('/register', controllers.users.getRegister);
 router.post('/register', controllers.users.postRegister);

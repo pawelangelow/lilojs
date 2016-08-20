@@ -5,5 +5,5 @@ mixin menu(items)
                 a(href='/contest/' + contest.id + '/' + contest.title) #{contest.title}
         li.divider
         li
-            a(href='#') All
+            a(href='/contest/all') All
 +menu(locals.menuItems.contests)

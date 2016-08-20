@@ -1,0 +1,12 @@
+extends ../shared/layout
+block main-content
+    each contest in data.contests
+        blockquote
+            p
+                |    #{contest.title}
+            p
+                |    #{contest.startDate} - #{contest.endDate}
+            small
+                |    #{contest.description}
+            p
+            a(href='/contest/' + contest.id + '/' + contest.title) Details
