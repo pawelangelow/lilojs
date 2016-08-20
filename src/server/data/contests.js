@@ -31,14 +31,13 @@ module.exports = {
             .sort({
                 startDate: 'desc'
             })
-            .limit(pageSize)
+            .limit(parseInt(pageSize, 10))
             .skip((page - 1) * pageSize)
             .exec(function (err, foundContests) {
                 if (err) {
                     callback(err);
                     return;
                 }
-
                 Contest.count().exec(function (err, numberOfContests) {
                     var data = {
                         contests: foundContests,
@@ -46,7 +45,6 @@ module.exports = {
                         pageSize: pageSize,
                         total: numberOfContests
                     };
-
                     callback(err, data);
                 });
             });
