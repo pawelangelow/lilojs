@@ -1,0 +1,9 @@
+mixin menu(items)
+    ul.dropdown-menu(role='menu')
+        each contest in items
+            li
+                a(href='contest/' + contest.id + '/' + contest.title) #{contest.title}
+        li.divider
+        li
+            a(href='#') All
++menu(locals.menuItems.contests)

@@ -5,8 +5,11 @@
 
 var contests = require('../data/contests');
 
-module.exports = function (app) {
-    contests.list({pageSize: 5}, function (err, data) {
-        app.locals.menuContests = data;
-    });
+module.exports = {
+    getMenu: function (res, callback) {
+        contests.list({pageSize: 5}, function (err, data) {
+            res.locals.menuItems = data;
+            callback();
+        });
+    }
 };
