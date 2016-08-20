@@ -29,7 +29,7 @@ module.exports = {
         Contest
             .find({ isVisible: notActive })
             .sort({
-                date: 'desc'
+                startDate: 'desc'
             })
             .limit(pageSize)
             .skip((page - 1) * pageSize)

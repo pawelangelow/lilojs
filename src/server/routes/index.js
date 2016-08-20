@@ -26,11 +26,6 @@ router.use(function (req, res, next) { //TODO: check if this is the best way
     ]);
 });
 
-router.use(function (req, res, next) {
-    console.log(res.locals.nekade);
-    next();
-});
-
 router.use('/admin', admin);
 
 router.get('/register', controllers.users.getRegister);
