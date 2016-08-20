@@ -47,4 +47,8 @@ module.exports = function (app, config) {
 
         next();
     });
+    app.use(function (req, res, next) {
+        app.locals.baseAddress = constants.baseAddress;
+        next();
+    });
 };
