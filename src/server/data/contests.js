@@ -1,8 +1,10 @@
 /*jslint node: true */
+/*jslint todo: true */
 'use strict';
 
 var Contest = require('mongoose').model('Contest'),
-    constants = require('../common/constants');
+    constants = require('../common/constants'),
+    ObjectId = require('mongodb').ObjectId;
 
 module.exports = {
     create: function (contest, user, callback) {
@@ -47,6 +49,23 @@ module.exports = {
                     };
                     callback(err, data);
                 });
+            });
+    },
+    getOne: function (id, callback) {
+        if (!id) {
+            callback('Error! Id must be provided!');
+        }
+
+        Contest
+            .findOne({ "_id" : new ObjectId(id) })
+            .exec(function (err, foundContest) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+
+                //TODO: Implement validation of the contest
+                callback(err, foundContest);
             });
     }
 };

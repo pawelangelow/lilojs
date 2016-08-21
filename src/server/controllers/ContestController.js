@@ -23,4 +23,18 @@ module.exports = {
             });
         });
     },
+    getSpecific: function (req, res) {
+        var id = req.params.id;
+        contests.getOne(id, function (err, result) {
+            //TODO: Validation
+            if (result.isVisible) {
+                res.render(CONTROLLER_NAME + '/contest', {
+                    contest: result
+                });
+            } else {
+                req.session.error = 'Sorry, but this contest is not available!';
+                res.redirect('/contest/all');
+            }
+        });
+    }
 };

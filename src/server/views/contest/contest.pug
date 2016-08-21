@@ -1,0 +1,14 @@
+extends ../shared/layout
+block main-content
+    h1
+        | #{contest.title}
+    h4
+        | Problems
+    ul.nav.nav-pills
+    if contest.problems.length !== 0
+        each problem in contest.problems
+          li
+            | a(href='#') #{problem.title}
+    else
+        p
+            | There are not added problems in this contest.

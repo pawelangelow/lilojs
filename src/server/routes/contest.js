@@ -11,3 +11,4 @@ module.exports = router;
 
 router.get('/', controllers.contest.getAll);
 router.get('/all', controllers.contest.getAll);
+router.get('/:id/:title', controllers.contest.getSpecific);
