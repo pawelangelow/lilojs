@@ -58,12 +58,13 @@ module.exports = {
 
         Contest
             .findOne({ "_id" : new ObjectId(id) })
+            .populate('problems')
+            .populate('creator')
             .exec(function (err, foundContest) {
                 if (err) {
                     callback(err);
                     return;
                 }
-
                 //TODO: Implement validation of the contest
                 callback(err, foundContest);
             });
