@@ -13,6 +13,8 @@ module.exports = {
     },
     baseAddress: '//localhost:3000',
     allowedLanguages: [
-        'C'
+        'C',
+        'C++',
+        'Java'
     ]
 };

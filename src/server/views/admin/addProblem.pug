@@ -20,6 +20,7 @@ block main-content
             each language in allowedLanguages
                 input(type='checkbox', name='allowedLanguages', value=language)
                 |   #{language}
+                br
 
             br
             input(type="submit" class="btn btn-lg" value="Create")
