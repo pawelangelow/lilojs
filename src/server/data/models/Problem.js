@@ -9,9 +9,9 @@ module.exports.init = function () {
         title: { type: String, required: requiredMessage },
         description: { type: String },
         descriptionPath: { type: String, required: requiredMessage },
-        weight: {type: Number },
         allowedLanguages: [{ type: String, required: requiredMessage }],
-        tests: [{ type: Schema.Types.ObjectId, ref: 'Test'}]
+        tests: [{ type: Schema.Types.ObjectId, ref: 'Test'}],
+        contest: {type: Schema.Types.ObjectId, ref: 'Contest'}
     });
     mongoose.model('Problem', problemSchema);
 };

@@ -11,5 +11,8 @@ module.exports = {
     paging: {
         contests: 30
     },
-    baseAddress: '//localhost:3000'
+    baseAddress: '//localhost:3000',
+    allowedLanguages: [
+        'C'
+    ]
 };

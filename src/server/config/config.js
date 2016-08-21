@@ -9,5 +9,6 @@ module.exports = {
         rootPath: rootPath,
         db: 'mongodb://localhost:27017/lilojs',
         port: process.env.PORT || 3000
-    }
+    },
+    rootPath: rootPath
 };

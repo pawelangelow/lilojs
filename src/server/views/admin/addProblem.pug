@@ -1,0 +1,29 @@
+extends ../shared/layout
+
+block main-content
+    form(method="post")
+        div(class="col-md-offset-3 col-md-6")
+            label(for="title") Title*
+            input(id="title" name="title" class="form-control" type="text" placeholder="Enter the title of problem")
+
+            label(for="contest") Contest
+            select(id="contest" class="form-control" name="contest")
+                option(value="") Choose Contest
+                each contest in contests
+                    option(value=contest._id) #{contest.title}
+
+            label(for="upload-input") Description as file (pdf, doc, docx, html, md)*
+            include ../shared/upload
+
+            label(for="allowedLanguages") Category
+            br
+            each language in allowedLanguages
+                input(type='checkbox', name='allowedLanguages', value=language)
+                |   #{language}
+
+            br
+            input(type="submit" class="btn btn-lg" value="Create")
+            hr
+
+block page-scripts
+    script(src="/lib/fileUpload.js")

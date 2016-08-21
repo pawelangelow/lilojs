@@ -35,10 +35,18 @@ module.exports = {
             });
     },
     getAddProblem: function (req, res) {
+        var options = {};
 
+        options.notActive = false;
+        contests.list(options, function (err, data) {
+            res.render(CONTROLLER_NAME + '/addProblem', {
+                allowedLanguages: constants.allowedLanguages,
+                contests: data.contests
+            });
+        });
     },
     postAddProblem: function (req, res) {
-
+        var contest = req.body;
     },
     getAddTest: function (req, res) {
 
