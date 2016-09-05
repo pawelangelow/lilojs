@@ -31,3 +31,5 @@ router.post('/addProblem', controllers.admin.postAddProblem);
 
 router.get('/addTest', controllers.admin.getAddTest);
 router.post('/addTest', controllers.admin.postAddTest);
+
+router.get('/getProblems/:id', controllers.admin.getProblems);

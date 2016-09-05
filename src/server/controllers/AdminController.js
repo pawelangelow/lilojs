@@ -7,7 +7,8 @@
 var CONTROLLER_NAME = 'admin',
     constants = require('../common/constants'),
     contests = require('../data/contests'),
-    problems = require('../data/problems');
+    problems = require('../data/problems'),
+    tests = require('../data/tests');
 
 module.exports = {
     getDashboard: function (req, res) {
@@ -67,10 +68,36 @@ module.exports = {
                 }
             });
     },
+    getProblems: function (req, res) {
+        var contestId = req.params.id;
+        problems.findByContest(contestId, function (err, result) {
+            //TODO: Validation
+            res.send(result);
+        });
+    },
     getAddTest: function (req, res) {
+        var options = {};
 
+        options.notActive = false;
+        contests.list(options, function (err, data) {
+            res.render(CONTROLLER_NAME + '/addTest', {
+                allowedLanguages: constants.allowedLanguages,
+                contests: data.contests
+            });
+        });
     },
     postAddTest: function (req, res) {
-
-    },
+        var test = req.body;
+        tests.create(test,
+            function (err, contest) {
+                if (err) {
+                    var data = {
+                        errorMessage: err
+                    };
+                    res.render(CONTROLLER_NAME + '/addTest', data);
+                } else {
+                    res.redirect('/problem/' + test.problem);
+                }
+            });
+    }
 };
