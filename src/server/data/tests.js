@@ -13,11 +13,11 @@ module.exports = {
         test.problem = new ObjectId(test.problem);
         Test.create(test, function (err, result) {
             var resultObjectId = new ObjectId(test._id);
-
             problems.getOne(test.problem, function (err, parent) {
-                parent.tests.push(resultObjectId);
-                parent.save();
-                callback(err, result);
+                parent.tests.push(result._id);
+                parent.save().then(function () {
+                    callback(err, result);
+                });
             });
         });
     }
