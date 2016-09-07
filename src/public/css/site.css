@@ -2,10 +2,6 @@
   outline: 0 !important;
 }
 
-.row {
-  margin-top: 80px;
-}
-
 .upload-btn {
   color: #ffffff;
   background-color: #F89406;
@@ -36,4 +32,10 @@
 }
 #upload-input2 {
   display: none;
+}
+
+.problem-stats {
+    text-align: right;
+    vertical-align: bottom;
+    margin-top: 30px;
 }

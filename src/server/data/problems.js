@@ -44,6 +44,8 @@ module.exports = {
 
         Problem
             .findOne({ "_id" : new ObjectId(id) })
+            .populate('tests')
+            .populate('contest')
             .exec(function (err, foundProblem) {
                 if (err) {
                     callback(err);

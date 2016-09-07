@@ -3,10 +3,12 @@
 
 var UsersController = require('./UsersController'),
     ContestController = require('./ContestController'),
-    AdminController = require('./AdminController');
+    AdminController = require('./AdminController'),
+    ProblemController = require('./ProblemController');
 
 module.exports = {
     users: UsersController,
     admin: AdminController,
-    contest: ContestController
+    contest: ContestController,
+    problem: ProblemController
 };

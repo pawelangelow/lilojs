@@ -13,6 +13,7 @@ var async = require('async'),
     globals = require('../config/globals'),
     admin = require('./admin'),
     contest = require('./contest'),
+    problem = require('./problem'),
     upload = require('./upload');
 
 module.exports = router;
@@ -31,6 +32,7 @@ router.use(function (req, res, next) { //TODO: check if this is the best way
 
 router.use('/admin', admin);
 router.use('/contest', contest);
+router.use('/problem', problem);
 router.use('/upload', upload);
 
 router.get('/register', controllers.users.getRegister);
