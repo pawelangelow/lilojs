@@ -10,3 +10,4 @@ var express = require("express"),
 module.exports = router;
 
 router.get('/:id', controllers.problem.getSpecific);
+router.post('/:id', controllers.submission.create);

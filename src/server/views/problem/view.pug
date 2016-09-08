@@ -14,7 +14,17 @@ block main-content
         div(class="row")
             textarea(class="form-control" rows="12" name="inputCode") Code goes here...
             br
-            input(type="submit" class="btn btn-lg pull-right" value="Submit")
+            div(class="row")
+                div(class="col-md-3")
+                    label(for="language") Language
+                    select(id="language" class="form-control" name="language")
+                        each lang in problem.allowedLanguages
+                            option(value=lang) #{lang}
+                div(class="col-md-9")
+                    if (currentUser)
+                        input(type="submit" class="btn btn-lg pull-right" value="Submit")
+                    else
+                        input(type="submit" class="btn btn-lg pull-right" disabled="disabled" value="Submit")
         hr
 
         div(class="row")
