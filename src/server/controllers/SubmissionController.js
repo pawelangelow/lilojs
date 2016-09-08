@@ -5,7 +5,8 @@
 'use strict';
 
 var CONTROLLER_NAME = 'sumbission',
-    submissions = require('../data/submissions');
+    submissions = require('../data/submissions'),
+    problems = require('../data/problems');
 
 module.exports = {
     create: function (req, res) {
@@ -23,7 +24,12 @@ module.exports = {
                     };
                     console.log(err);
                 } else {
-                    console.log('doide');
+                    problems.getOne(sumbission.problem, function (err, result) {
+                        //TODO: Validation
+                        res.render('problem' + '/view', {
+                            problem: result
+                        });
+                    });
                 }
             });
     }
