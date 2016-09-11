@@ -2,13 +2,15 @@
 Auto testing for computer programs
 
 # Requirements
-##### NodeJS
+### NodeJS
 Install NodeJS as you wish. I'm using ubuntu 16.04, so:
 > sudo apt install nodejs
-##### NPM 
+
+### NPM 
 Same as NodeJS. In my case:
 > sudo apt install npm
-##### MongoDB
+
+### MongoDB
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
 Long story short:
