@@ -12,7 +12,7 @@ module.exports = {
     processSubmission: processSubmission
 };
 
-function processSubmission(code, tests, callbackResult) {
+function processSubmission(id, code, tests, callbackResult) {
 
     var tasks = [],
         pathToFolder = path.normalize(__dirname + '/../../server/resources/submissions'),
@@ -66,7 +66,7 @@ function processSubmission(code, tests, callbackResult) {
     });
 
     async.series(tasks, function _allDone(err) {
-        callbackResult(result);
+        callbackResult(id, result);
     });
 }
 
