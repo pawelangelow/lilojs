@@ -21,13 +21,26 @@ module.exports = {
         Submission.create(newSubmission, function (err, result) {
             var problem = problems.getOne(result.problem, function (err, problemResult) {
                 var tests = problemResult.tests;
-                runner.processSubmission(result.sourceCode, tests, consoleLogger);
+                runner.processSubmission(result._id, result.sourceCode, tests, consoleLogger);
             });
             callback(err, result);
+        });
+    },
+    updatePoints: function (id, points, callback) {
+        Submission.update({ "_id" : new ObjectId(id) }, {
+            points: points
+            }, function(err, affected, resp) {
+            console.log(affected, resp);
+            callback(err);
         });
     }
 };
 
-function consoleLogger() {
-    console.log('Hi from callback!');
+function consoleLogger(id, data) {
+    var points = data.successed / data.tests * 100;
+    module.exports.updatePoints(id, points, function (err) {
+        if (!err) {
+            console.log('yey');
+        }
+    })
 }
