@@ -5,6 +5,7 @@
 var Submission = require('mongoose').model('Submission'),
     ObjectId = require('mongodb').ObjectId,
     problems = require('./problems'),
+    constants = require('../common/constants'),
     runner = require('../services/running');
 
 module.exports = {
@@ -30,17 +31,37 @@ module.exports = {
         Submission.update({ "_id" : new ObjectId(id) }, {
             points: points
             }, function(err, affected, resp) {
-            console.log(affected, resp);
             callback(err);
         });
-    }
+    },
+    list: function (options, id, user, callback) {
+        if (!options) {
+            callback('Error! Options are not provided!');
+        }
+
+        var page = options.page || 1,
+            pageSize = options.pageSize || constants.paging.submissions;
+
+        Submission
+            .find({ "problem" : new ObjectId(id) })
+            .find({ "submiter" : new ObjectId(user._id) })
+            .sort({
+                submitedOn: 'desc'
+            })
+            .limit(parseInt(pageSize, 10))
+            .skip((page - 1) * pageSize)
+            .exec(function (err, foundContests) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(err, foundContests)
+            });
+    },
 };
 
 function consoleLogger(id, data) {
     var points = data.successed / data.tests * 100;
     module.exports.updatePoints(id, points, function (err) {
-        if (!err) {
-            console.log('yey');
-        }
-    })
+    });
 }

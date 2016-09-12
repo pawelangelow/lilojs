@@ -9,7 +9,8 @@ module.exports = {
         'Practice'
     ],
     paging: {
-        contests: 30
+        contests: 30,
+        submissions: 10
     },
     baseAddress: '//localhost:3000',
     allowedLanguages: [

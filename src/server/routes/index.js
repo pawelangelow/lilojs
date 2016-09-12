@@ -14,6 +14,7 @@ var async = require('async'),
     admin = require('./admin'),
     contest = require('./contest'),
     problem = require('./problem'),
+    submissions = require('./submissions'),
     upload = require('./upload');
 
 module.exports = router;
@@ -34,6 +35,7 @@ router.use('/admin', admin);
 router.use('/contest', contest);
 router.use('/problem', problem);
 router.use('/upload', upload);
+router.use('/submissions', submissions);
 
 router.get('/register', controllers.users.getRegister);
 router.post('/register', controllers.users.postRegister);

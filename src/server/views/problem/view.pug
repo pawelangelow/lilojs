@@ -22,13 +22,15 @@ block main-content
                             option(value=lang) #{lang}
                 div(class="col-md-9")
                     if (currentUser)
-                        input(type="submit" class="btn btn-lg pull-right" value="Submit")
+                        input(type="submit" id="submit" class="btn btn-lg pull-right" value="Submit")
                     else
                         input(type="submit" class="btn btn-lg pull-right" disabled="disabled" value="Submit")
+
+                    input#problemId(type='hidden', name='problemId' value=problem._id)
         hr
 
         div(class="row")
-            table.table.table-striped
+            table(id="submissions" class="table table-striped")
                 thead
                     tr
                         th #
@@ -46,3 +48,6 @@ block main-content
                         td Column content
                         td Column content
                         td Column content
+
+block page-scripts
+    script(src="/lib/addSubmission.js")

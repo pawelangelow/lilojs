@@ -32,5 +32,16 @@ module.exports = {
                     });
                 }
             });
+    },
+    get: function (req, res) {
+        var id = req.params.id,
+            user = req.user;
+        if (user && id) {
+            submissions.list({}, id, user, function (err, data) {
+                res.json(data);
+            });
+        } else {
+            res.end("No results!");
+        }
     }
 };
