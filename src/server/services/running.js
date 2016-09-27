@@ -84,7 +84,7 @@ function makeid(length) {
 
 function matchTest(real, expected) {
     for (var i = 0; i < expected.length; i++) {
-        if (expected[i] !== real[i]) {
+        if (expected[i] + '' !== real) {
             return false;
         }
     }
