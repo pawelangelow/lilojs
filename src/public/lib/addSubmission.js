@@ -6,7 +6,7 @@ function reloadSubmission(data) {
     $('#submissions').html();
     var string = '';
     for (var i = 0; i < data.length; i++) {
-        string += '<tr><td>' + (i + 1) + '</td><td>' + data[i].submitedOn + '</td><td>' + data[i].points + '</td></tr>';
+        string += '<tr><td>' + (i + 1) + '</td><td>' + moment(data[i].submitedOn).startOf('minute').fromNow() + '</td><td>' + Math.round(data[i].points * 100) / 100 + '</td></tr>';
     }
     $('#submissions').html(string);
 }
