@@ -13,11 +13,16 @@ Well I've discused this problem with another programmer and he gave me idea to u
 To save your time, my solution came after this [article](https://docs.docker.com/engine/getstarted/step_four/). I've found a image for `gcc`. [Here it is](https://hub.docker.com/_/gcc/).
 
 1. The `Dockerfile`
+
 >FROM gcc:4.9
-ADD ./app /usr/src/myapp
-WORKDIR /usr/src/myapp
-RUN gcc -o myapp main.c
-CMD ["./myapp"]
+
+>ADD ./app /usr/src/myapp
+
+>WORKDIR /usr/src/myapp
+
+>RUN gcc -o myapp main.c
+
+>CMD ["./myapp"]
 
 "Add" line copies local folder "./app" to the container folder "/usr/src/myapp". And thats it.
 
