@@ -35,7 +35,8 @@ Pretty much that's it. Don't forget to run the service:
 
 For example, C programs, are compiled by `gcc` compiler. It is build in Ubuntu 16.04, but if you need it:
 > sudo apt install gcc
-8. Open browser and locate to `http://localhost:3000`
-9. Administrator credentials are hand made with `robomongo`. Select the user, and change:
 
+8. Open browser and locate to `http://localhost:3000`
+
+9. Administrator credentials are hand made with `robomongo`. Select the user, and change:
 `accessLevel: 'administrator'`
