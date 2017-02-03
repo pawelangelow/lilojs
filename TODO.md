@@ -24,6 +24,7 @@ List of all the TODOs
 - Java package
 - C#
 - maybe other
+- research if there is a way to get memory consumption in docker container (if docker container is gonna be used)
 
 ## WebUI
 
