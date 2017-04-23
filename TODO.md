@@ -37,6 +37,7 @@ List of all the TODOs
 ## WebUI
 
 - ~~add bootstrap theme for good looking with less work (check http://bootswatch.com/)~~
+- add middleware for generated menu - maybe app.locals as well as caching
 - add login/register functionality
 - add Contests page
 - add Problems page
