@@ -1,0 +1,51 @@
+doctype
+html
+    head
+        title LILOJS
+        link(rel="stylesheet" href="/stylesheets/bootstrap.min.css")
+    body
+      nav.navbar.navbar-default.container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='true')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        #bs-example-navbar-collapse-1.navbar-collapse.collapse.in(aria-expanded='true', style='')
+          ul.nav.navbar-nav
+            li
+              a(href='#') Link
+            li
+              a(href='#') Link
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                | Dropdown
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='#') Action
+                li
+                  a(href='#') Another action
+                li
+                  a(href='#') Something else here
+                li.divider
+                li
+                  a(href='#') Separated link
+                li.divider
+                li
+                  a(href='#') One more separated link
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='#') Link
+
+      .container
+          block main-content
+
+      footer
+          p.text-center
+              | &copy; Pavel Angelov
+              br
+              a(href="https://github.com/pawelangelow/lilojs") [Source code]
+
+      include scripts
+block page-scripts
