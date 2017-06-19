@@ -7,8 +7,8 @@ const app = express();
 app.set('views', path.join(__dirname, 'server', 'views'));
 app.set('view engine', 'pug');
 
-// TODO: extract middlewares somewhere?
 app.use(express.static(__dirname + '/public'));
+require(path.join(__dirname, 'server', 'middlewares'))(app);
 require(path.join(__dirname, 'server', 'controllers'))(app);
 
 app.listen(3000, function() {
