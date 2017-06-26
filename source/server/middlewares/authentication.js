@@ -8,7 +8,7 @@ module.exports.priority = 2;
 
 passport.use(new Strategy(getUser));
 
-passport.serializeUser(function(user, cb) {
+passport.serializeUser((user, cb) => {
 	cb(null, user._id);
 });
 
@@ -19,6 +19,16 @@ module.exports.load = (app) => {
 
 	app.use(passport.initialize());
 	app.use(passport.session());
+
+	app.use((req, res, next) => {
+		if (req.user) {
+			app.locals.currentUser = req.user;
+		} else {
+			app.locals.currentUser = undefined;
+		}
+
+		next();
+	});
 };
 
 // TODO: get this from service

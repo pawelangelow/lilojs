@@ -35,8 +35,16 @@ html
                 li
                   a(href='#') One more separated link
           ul.nav.navbar-nav.navbar-right
-            li
-              a(href='#') Link
+            if (currentUser)
+              li
+                a(href="/profile") #{currentUser.username}
+              li
+                a(href="/authentication/logout") Logout
+            if (!currentUser)
+              li
+                a(href="/authentication/register") Register
+              li
+                a(href="/authentication/login") Login
 
       .container
           block main-content
