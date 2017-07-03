@@ -13,6 +13,9 @@ router.get('/login', (req, res) => {
 router.post('/login',
 	passport.authenticate('local', { failureRedirect: '/authentication/login' }),
 	function(req, res) {
+		const oneHour = 3600000;
+		req.session.cookie.expires = new Date(Date.now() + oneHour);
+		req.session.cookie.maxAge = oneHour;
 		res.redirect('/');
 	});
 
