@@ -1,13 +1,15 @@
 'use strict';
 
 const router = require('express').Router();
-const path = require('path');
 const passport = require('passport');
+
+const pathResolver = require('../utilities').getViewName;
 
 module.exports = router;
 
 router.get('/login', (req, res) => {
-	res.render(path.join('authentication', 'login')); // TODO: think of better way
+	const viewName = pathResolver(__filename, ['login']);
+	res.render(viewName);
 });
 
 router.post('/login',
