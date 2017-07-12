@@ -1,0 +1,18 @@
+extends ../shared/layout
+
+block main-content
+  ul.nav.nav-tabs
+    li.active
+      a(href='#home', data-toggle='tab', aria-expanded='false') Overview
+    li
+      a(href='#credentials', data-toggle='tab', aria-expanded='true') Credentials
+
+  #myTabContent.tab-content
+    br
+
+    #home.tab-pane.fade.active.in
+      p
+        | Some generic information - exams, homeworks, trainings participaded in
+    #credentials.tab-pane.fade
+      p
+        | Change password, what else?
