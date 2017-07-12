@@ -25,3 +25,13 @@ router.get('/logout', (req, res) => {
 	req.logout();
 	res.redirect('/');
 });
+
+router.get('/register', (req, res) => {
+	const viewName = pathResolver(__filename, ['register']);
+	res.render(viewName);
+});
+
+router.post('/register', (req, res) => {
+	// TODO: Add registration handling
+	res.end('OK');
+});

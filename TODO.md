@@ -33,6 +33,7 @@ List of all the TODOs
 - Add Test menu (with posibility for bulk import)
 - Add Solution to check the existing tests
 - Generate results from chosen contest
+- Configure if registration is open and if not - add students (reading from excel file, json or something and display all records)
 
 ## WebUI
 
@@ -44,7 +45,6 @@ List of all the TODOs
 - add Submition page
 - add Admin panel
 - determine if framework is needed
-
 
 ## Documentation
 
