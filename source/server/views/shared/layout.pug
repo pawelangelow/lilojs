@@ -27,6 +27,10 @@ html
                 a(href="/authentication/login") Login
 
       .container
+        if (errorMessage)
+          .alert.alert-danger !{errorMessage}
+
+      .container
           block main-content
 
       footer

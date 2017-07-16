@@ -29,6 +29,18 @@ module.exports.load = (app) => {
 
 		next();
 	});
+
+	app.use((req, res, next) => {
+		if (req.session.error) {
+			const msg = req.session.error;
+			req.session.error = undefined;
+			app.locals.errorMessage = msg;
+		} else {
+			app.locals.errorMessage = undefined;
+		}
+
+		next();
+	});
 };
 
 // TODO: get this from service
