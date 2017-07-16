@@ -1,0 +1,79 @@
+extends ../shared/layout
+
+block main-content
+  h2= title
+  ul.breadcrumb
+    li
+      a(href='#') Home
+    li
+      a(href='#') Contest
+    li.active= title
+
+  h4 Best result
+  .row
+    .col-md-11
+      .progress
+        .progress-bar.progress-bar-success(style='width: 40%')
+    .col-md-1
+      span 40/100
+
+  form(method="post" class="form-horizontal")
+    div(class="col-md-12")
+      fieldset.backgrounded
+        textarea(id="code" class="form-control code-area" name="code")
+      hr
+      input(type="submit" class="btn btn-lg btn-primary" value="Submit code")
+      hr
+
+  .row
+    .col-md-offset-2.col-md-8
+      h4 Submissions
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th #
+            th Submission
+            th Date and time
+            th Points
+        tbody
+          tr
+            td 1
+            td
+              a(href="#") Column content
+            td Column content
+            td Column content
+          tr
+            td 2
+            td Column content
+            td Column content
+            td Column content
+          tr
+            td 3
+            td Column content
+            td Column content
+            td Column content
+          tr
+            td 4
+            td Column content
+            td Column content
+            td Column content
+          tr
+            td 5
+            td Column content
+            td Column content
+            td Column content
+          tr
+            td 6
+            td Column content
+            td Column content
+            td Column content
+          tr
+            td 7
+            td Column content
+            td Column content
+            td Column content
+      ul.pager
+        li.disabled
+          a(href='#') Previous
+        li
+          a(href='#') Next
