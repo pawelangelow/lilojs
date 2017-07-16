@@ -1,13 +1,10 @@
 'use strict';
 
-const fs = require('fs');
+const utils = require('../utilities');
 
 module.exports = function (app) {
-	fs.readdirSync(__dirname).forEach(function(file) {
-		const fileName = file.split('.')[0];
-		if (fileName !== 'index') {
-			app.use(`/${fileName}`, require(`./${fileName}`));
-		}
+	utils.getFilesFromDir(__dirname, (fileName) => {
+		app.use(`/${fileName}`, require(`./${fileName}`));
 	});
 
 	app.get('/', function(req, res) {

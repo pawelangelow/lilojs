@@ -1,17 +1,15 @@
 'use strict';
 
-const fs = require('fs');
+const utils = require('../utilities');
 
 module.exports = function (app) {
 	const files = [];
-	fs.readdirSync(__dirname).forEach(function(file) {
-		const fileName = file.split('.')[0];
-		if (fileName !== 'index') {
-			files.push({
-				name: fileName,
-				priority: require(`./${fileName}`).priority
-			});
-		}
+
+	utils.getFilesFromDir(__dirname, (fileName) => {
+		files.push({
+			name: fileName,
+			priority: require(`./${fileName}`).priority
+		});
 	});
 
 	files.sort((a, b) => a.priority - b.priority);
