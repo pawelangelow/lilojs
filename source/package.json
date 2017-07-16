@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node app.js",
-    "watch": "nodemon app.js"
+    "watch": "nodemon app.js",
+    "test": "node ./node_modules/mocha/bin/mocha server/tests/*"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -19,9 +20,12 @@
     "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
+    "chai": "^4.1.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.4.2",
+    "sinon": "^2.3.8"
   }
 }
