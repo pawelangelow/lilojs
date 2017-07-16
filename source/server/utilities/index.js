@@ -3,6 +3,7 @@ const fs = require('fs');
 
 module.exports.getViewName = (filename, extra) => {
 	// TODO: Make sure this will work with single value for "extra"
+	// TODO: Add tests
 	if (!Array.isArray(extra)) {
 		throw new Error('Array of path is required');
 	}
