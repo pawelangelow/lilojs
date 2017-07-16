@@ -1,57 +1,43 @@
 extends ../shared/layout
 
 block main-content
-  h2= title
   ul.breadcrumb
     li
       a(href='#') Home
     li
       a(href='#') Contest
-    li.active= title
+    li
+      a(href='#') Problem
+    li.active Submission
 
-  h4 Best result
-  .row
-    .col-md-11
-      .progress
-        .progress-bar.progress-bar-success(style='width: 40%')
-    .col-md-1
-      span 40/100
+  fieldset.backgrounded
+    textarea(id="code" class="form-control code-shower" name="code")
 
-  form(method="post" class="form-horizontal")
-    div(class="col-md-12")
-      fieldset.backgrounded
-        textarea(id="code" class="form-control code-area" name="code")
-      hr
-      input(type="submit" class="btn btn-lg btn-primary" value="Submit code")
-      hr
+  br
 
   .row
     .col-md-offset-2.col-md-8
-      h4 Submissions
+      h4 Tests
       table.table.table-striped.table-hover
         thead
           tr
             th #
-            th Submission
             th Date and time
-            th Points
+            th Status
+            th Review
         tbody
-          tr
-            td 1
-            td
-              a(href="/submission/3") Column content
-            td Column content
-            td Column content
           tr
             td 2
             td Column content
             td Column content
-            td Column content
+            td
+              a(href='#profile', data-toggle='tab', aria-expanded='false') Profile
           tr
             td 3
             td Column content
             td Column content
-            td Column content
+            td
+              a(href='#home', data-toggle='tab', aria-expanded='true') Home
           tr
             td 4
             td Column content
@@ -72,8 +58,16 @@ block main-content
             td Column content
             td Column content
             td Column content
-      ul.pager
-        li.disabled
-          a(href='#') Previous
-        li
-          a(href='#') Next
+      #myTabContent.tab-content
+        #home.tab-pane.fade
+          h4 Results for test #3
+          p
+            | Input data:
+            span.text-danger    1 2 3
+          p
+            | Output data:
+            span.text-danger    6
+        #profile.tab-pane.fade
+          h4 Results for test #4
+          p.text-danger
+            | Test information is not allowed to be seen!
