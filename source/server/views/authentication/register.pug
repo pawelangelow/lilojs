@@ -5,7 +5,7 @@ block main-content
     div(class="col-md-offset-2 col-md-8")
       fieldset.backgrounded
         label(for="username") Username
-        input(id="username" class="form-control" type="text" name="username" placeholder="Username")
+        input(id="username" class="form-control" type="text" name="username" placeholder="Username" value=username && username.length > 0 ? username : '')
         br
         label(for="password") Password
         input(id="password" class="form-control" type="password" name="password" placeholder="Password")
@@ -14,18 +14,18 @@ block main-content
         input(id="confirm-password" class="form-control" type="password" name="confirmPassword" placeholder="Confirm password")
         br
         label(for="email") E-mail
-        input(id="email" class="form-control" type="email" name="email" placeholder="E-mail")
+        input(id="email" class="form-control" type="email" name="email" placeholder="E-mail" value=email && email.length > 0 ? email : '')
         br
         label(for="first-name") First Name
-        input(id="first-name" class="form-control" type="text" name="firstName" placeholder="First Name")
+        input(id="first-name" class="form-control" type="text" name="firstName" placeholder="First Name" value=firstName && firstName.length > 0 ? firstName : '')
         br
         label(for="last-name") Last Name
-        input(id="last-name" class="form-control" type="text" name="lastName" placeholder="Last Name")
+        input(id="last-name" class="form-control" type="text" name="lastName" placeholder="Last Name" value=lastName && lastName.length > 0 ? lastName : '')
         br
         label(for="faculty-number") Faculty number
-        input(id="faculty-number" class="form-control" type="text" name="facultyNumber" placeholder="Faculty number")
+        input(id="faculty-number" class="form-control" type="text" name="facultyNumber" placeholder="Faculty number" value=facultyNumber ? facultyNumber : '')
         br
         label(for="administrative-group") Group
-        input(id="administrative-group" class="form-control" type="number" name="administrativeGroup" placeholder="Administrative group")
+        input(id="administrative-group" class="form-control" type="number" name="administrativeGroup" placeholder="Administrative group" value=administrativeGroup ? administrativeGroup : '')
         hr
         input(type="submit" class="btn btn-lg btn-primary" value="Register")

@@ -29,6 +29,8 @@ html
       .container
         if (errorMessage)
           .alert.alert-danger !{errorMessage}
+        if (successMessage)
+          .alert.alert-success !{successMessage}
 
       .container
           block main-content

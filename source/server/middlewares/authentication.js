@@ -3,6 +3,7 @@
 const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
+const userService = require('../services/user');
 
 module.exports.priority = 2;
 
@@ -15,6 +16,7 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser(getById);
 
 module.exports.load = (app) => {
+	// TODO: extract this to configuration file
 	app.use(session({secret: 'some secret token', resave: true, saveUninitialized: true}));
 
 	app.use(passport.initialize());
@@ -39,31 +41,36 @@ module.exports.load = (app) => {
 			app.locals.errorMessage = undefined;
 		}
 
+		if (req.session.success) {
+			const msg = req.session.success;
+			req.session.success = undefined;
+			app.locals.successMessage = msg;
+		} else {
+			app.locals.successMessage = undefined;
+		}
+
 		next();
 	});
 };
 
-// TODO: get this from service
 function getUser(username, password, cb) {
-	if (username !== 'test') {
-		return cb(null, false);
-	}
-
-	if (password !== '1234') {
-		return cb(null, false);
-	}
-
-	return cb(null, {
-		_id: '123456789a',
-		username: 'test'
-	});
+	userService
+		.loginUser(username, password)
+		.then((result) => {
+			return cb(null, result);
+		})
+		.catch((err) => {
+			return cb(null, false, { message: err.message });
+		});
 }
 
 function getById(id, cb) {
-	if (id === '123456789a') {
-		cb(null, {
-			_id: '123456789a',
-			username: 'test'
+	userService
+		.getUserById(id)
+		.then((result) => {
+			return cb(null, result);
+		})
+		.catch(() => {
+			return cb(null, false);
 		});
-	}
 }
