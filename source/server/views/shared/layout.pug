@@ -15,6 +15,9 @@ html
         #bs-example-navbar-collapse-1.navbar-collapse.collapse.in(aria-expanded='true', style='')
           include menu
           ul.nav.navbar-nav.navbar-right
+            if (isAdmin)
+              li
+                a(href="/admin") Administration
             if (currentUser)
               li
                 a(href="/profile") #{currentUser.username}

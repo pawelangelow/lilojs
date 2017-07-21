@@ -25,6 +25,12 @@ exports.init = () => {
 				return true;
 			}
 			return false;
+		},
+		isAdmin: function () {
+			if (this.accessLevel === 'administrator') {
+				return true;
+			}
+			return false;
 		}
 	});
 

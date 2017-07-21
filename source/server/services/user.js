@@ -82,6 +82,19 @@ exports.getUserById = (id) => {
 		});
 };
 
+exports.isAdmin = (username) => {
+	return userData
+		.findOne({ username: username })
+		.exec()
+		.then((user) => {
+			if (!user) {
+				throw new Error('Invalid user!');
+			}
+
+			return user.isAdmin();
+		});
+};
+
 function isNumber(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
