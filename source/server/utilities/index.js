@@ -25,3 +25,8 @@ module.exports.getFilesFromDir = (dirname, cb) => {
 		}
 	});
 };
+
+module.exports.getBuildVersion = () => {
+	const packageFile = require('../../package.json');
+	return packageFile.version;
+};

@@ -2,13 +2,16 @@
 
 const router = require('express').Router();
 
-const pathResolver = require('../utilities').getViewName;
+const utils = require('../utilities');
+const pathResolver = utils.getViewName;
 
 module.exports = router;
 
 router.get('/', (req, res) => {
 	const viewName = pathResolver(__filename, ['index']);
-	res.render(viewName);
+	res.render(viewName, {
+		buildVersion: utils.getBuildVersion()
+	});
 });
 
 router.get('/addContest', (req, res) => {
