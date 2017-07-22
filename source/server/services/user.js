@@ -65,7 +65,8 @@ exports.loginUser = (username, password) => {
 
 			return {
 				_id: user._id,
-				username: user.username
+				username: user.username,
+				access: user.accessLevel
 			};
 		});
 };
@@ -77,21 +78,45 @@ exports.getUserById = (id) => {
 		.then((user) => {
 			return {
 				_id: user._id,
-				username: user.username
+				username: user.username,
+				access: user.accessLevel
 			};
 		});
 };
 
-exports.isAdmin = (username) => {
+exports.getFullUserById = (id) => {
+	// TODO: DRY with the one above
 	return userData
-		.findOne({ username: username })
+		.findOne({_id: id})
 		.exec()
 		.then((user) => {
-			if (!user) {
-				throw new Error('Invalid user!');
-			}
+			return user;
+		});
+};
 
-			return user.isAdmin();
+exports.updateData = (inputModel, userId) => {
+	// if (!validateInputModel(inputModel)) {
+	// 	// TODO: send error messages in promise, to display them to the client
+	// 	return Promise.reject([]);
+	// }
+
+	const model = inputModel;
+
+	if (inputModel.password) {
+		model.salt = encryption.generateSalt();
+		model.hashPass = encryption.generateHashedPassword(model.salt, model.password);
+	}
+
+	return userData
+		.findByIdAndUpdate(userId, model)
+		.then((user) => {
+			if (user !== null) {
+				return true;
+			}
+			return ['Not found!'];
+		})
+		.catch((err) => {
+			return [err];
 		});
 };
 

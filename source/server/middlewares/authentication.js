@@ -25,11 +25,9 @@ module.exports.load = (app) => {
 	app.use((req, res, next) => {
 		if (req.user) {
 			app.locals.currentUser = req.user;
-			userService.isAdmin(req.user.username).then((result) => {
-				if (result) {
-					app.locals.isAdmin = true;
-				}
-			});
+			if (req.user.access !== 'student') {
+				app.locals.isAdmin = true;
+			}
 		} else {
 			app.locals.isAdmin = undefined;
 			app.locals.currentUser = undefined;

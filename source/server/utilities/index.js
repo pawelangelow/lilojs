@@ -30,3 +30,23 @@ module.exports.getBuildVersion = () => {
 	const packageFile = require('../../package.json');
 	return packageFile.version;
 };
+
+module.exports.onlyForLoggedIn = (req, res, next) => {
+	if (req.user) {
+		next();
+	} else {
+		res.redirect('/authentication/login');
+	}
+};
+
+module.exports.onlyForAdmin = (req, res, next) => {
+	if (req.user && req.user.access !== 'student') {
+		next();
+	}
+
+	if (req.user) {
+		res.redirect('/');
+	}
+
+	res.redirect('/authentication/login');
+};
