@@ -6,5 +6,39 @@ block main-content
       include menu
 
     div.col-md-9
-      div.jumbotron.text-center
-        h1 Add problem
+      h1 Add problem
+      form(method="post")
+        fieldset.backgrounded
+            label(for="title") Title*
+            input(id="title" name="title" class="form-control" type="text" placeholder="Enter the title of problem")
+
+            br
+            label(for="contest") Contest
+            select(id="contest" class="form-control" name="contest")
+                option(value="") Choose Contest
+                each contest in contests
+                    option(value=contest._id) #{contest.title}
+
+            br
+            label(for="upload-input") Description as file (pdf, doc, docx, html, md)*
+            .panel-body
+              .progress
+                  #progress-bar.progress-bar(role='progressbar')
+              button#upload-btn.btn.btn-primary(type='button') Upload File
+              input#upload-input(type='file', name='uploads')
+              input#fileName(type='hidden', name='fileName')
+
+            br
+            label(for="allowedLanguages") Category
+            br
+            each language in allowedLanguages
+                input(type='checkbox', name='allowedLanguages', value=language)
+                |   #{language}
+                br
+
+            hr
+            input(type="submit" class="btn btn-lg btn-primary" value="Create")
+
+block page-scripts
+  //- TODO: Think of cleaner solution for uploading file
+  script(src="/javascripts/fileUpload.js")

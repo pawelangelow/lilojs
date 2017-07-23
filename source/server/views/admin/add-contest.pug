@@ -6,5 +6,47 @@ block main-content
       include menu
 
     div.col-md-9
-      div.jumbotron.text-center
-        h1 Add contest
+      h1 Add contest
+      form(method="post")
+        fieldset.backgrounded
+          label(for="title") Title*
+          input(id="title" name="title" class="form-control" type="text" placeholder="Enter the title of contest")
+
+          br
+          label(for="description") Description
+          textarea(id="description" name="description" class="form-control") Some description about contest. Not mandatory!
+
+          br
+          label(for="category") Category
+          h6 Exam has different strategy for running (expects big load). Default is homework.
+          select(id="category" class="form-control" name="category")
+            option(value="") Choose Category
+            each category in categories
+              option(value=category) #{category}
+
+          br
+          label(for="startDate") Start date*
+          input(id="startDate" name="startDate" class="form-control" type="text")
+
+          br
+          label(for="endDate") End date*
+          input(id="endDate" name="endDate" class="form-control" type="text")
+
+          br
+          label Can be practiced after end date?
+          .radio
+            label
+              input(name='canPractice', value='true', checked='', type='radio')
+              |             Yes
+          .radio
+            label
+              input(name='canPractice', value='false', type='radio')
+              |             No
+
+          hr
+          input(type="submit" class="btn btn-lg btn-primary" value="Create")
+
+block page-scripts
+    script.
+      $('#startDate').datetimepicker();
+      $('#endDate').datetimepicker();

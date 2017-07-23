@@ -42,11 +42,34 @@ module.exports.onlyForLoggedIn = (req, res, next) => {
 module.exports.onlyForAdmin = (req, res, next) => {
 	if (req.user && req.user.access !== 'student') {
 		next();
-	}
-
-	if (req.user) {
+	} else if (req.user && req.user.access === 'student') {
 		res.redirect('/');
+	} else {
+		res.redirect('/authentication/login');
+	}
+};
+
+exports.generateRandomId = (length) => {
+	let text = '';
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let i;
+
+	for (i = 0; i < length; i += 1) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
 	}
 
-	res.redirect('/authentication/login');
+	return text;
+};
+
+exports.createDirSync = (dirPath) => {
+	const sep = path.sep;
+	const initDir = path.isAbsolute(dirPath) ? sep : '';
+	dirPath.split(sep).reduce((parentDir, childDir) => {
+		const curDir = path.resolve(parentDir, childDir);
+		if (!fs.existsSync(curDir)) {
+			fs.mkdirSync(curDir);
+		}
+
+		return curDir;
+	}, initDir);
 };
