@@ -27,6 +27,6 @@ footer {
   height: 25vh !important;
 }
 
-#upload-input {
-  display: none;
+.upload-input {
+  display: none !important;
 }

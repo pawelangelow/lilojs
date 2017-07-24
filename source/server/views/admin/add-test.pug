@@ -6,5 +6,40 @@ block main-content
       include menu
 
     div.col-md-9
-      div.jumbotron.text-center
-        h1 Add test
+      h1 Add test
+      form(method="post")
+        fieldset.backgrounded
+          label(for="title") Title
+          input(id="title" name="title" class="form-control" type="text" placeholder="Enter the title of test")
+
+          br
+          label(for="contest") Contest*
+          select(id="contest" class="form-control" name="contest")
+              option(value="") Choose Contest
+              each contest in contests
+                  option(value=contest._id) #{contest.title}
+
+          br
+          div(id="problemGroup")
+              label(for="problem") Problem*
+              select(id="problem" class="form-control" name="problem")
+
+          br
+          label(for="input") Input
+          textarea(id="input" name="input" class="form-control") The input of the test. It has priority over input with file!
+
+          include ./uploadForm
+          +uploadForm('progressBar', 'uploadBtn', 'uploadInput', 'fileName')
+
+          label(for="output") Output
+          textarea(id="output" name="output" class="form-control") The output of the test. It has priority over output with file!
+
+          +uploadForm('progressBar2', 'uploadBtn2', 'uploadInput2', 'fileName2')
+
+          hr
+          input(type="submit" class="btn btn-lg btn-primary" value="Create")
+
+block page-scripts
+  script(src="/javascripts/fileUpload.js")
+  script(src="/javascripts/fileUpload2.js")
+  script(src="/javascripts/loadContest.js")

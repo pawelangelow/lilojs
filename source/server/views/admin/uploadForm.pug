@@ -1,0 +1,7 @@
+mixin uploadForm(progressName, buttonName, uploadInput, fileInput)
+  .panel-body
+    .progress
+        div(id=progressName role='progressbar').progress-bar
+    button(id=buttonName type='button').btn.btn-primary Upload File
+    input(id=uploadInput type='file', name=uploadInput).upload-input
+    input(id=fileInput type='hidden', name=fileInput)

@@ -21,12 +21,8 @@ block main-content
 
             br
             label(for="upload-input") Description as file (pdf, doc, docx, html, md)*
-            .panel-body
-              .progress
-                  #progress-bar.progress-bar(role='progressbar')
-              button#upload-btn.btn.btn-primary(type='button') Upload File
-              input#upload-input(type='file', name='uploads')
-              input#fileName(type='hidden', name='fileName')
+            include ./uploadForm
+            +uploadForm('progressBar', 'uploadBtn', 'uploadInput', 'fileName')
 
             br
             label(for="allowedLanguages") Category

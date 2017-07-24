@@ -1,10 +1,10 @@
-$('#uploadBtn').on('click', function () {
-    $('#uploadInput').click();
-    $('#progressBar').text('0%');
-    $('#progressBar').width('0%');
+$('#uploadBtn2').on('click', function () {
+    $('#uploadInput2').click();
+    $('#progressBar2').text('0%');
+    $('#progressBar2').width('0%');
 });
 
-$('#uploadInput').on('change', function () {
+$('#uploadInput2').on('change', function () {
   var files = $(this).get(0).files;
 
     if (files.length > 0){
@@ -17,7 +17,7 @@ $('#uploadInput').on('change', function () {
       var file = files[i];
 
       // add the files to formData object for the data payload
-      formData.append('uploadInput[]', file, file.name);
+      formData.append('uploadInput2[]', file, file.name);
     }
 
     $.ajax({
@@ -27,7 +27,7 @@ $('#uploadInput').on('change', function () {
       processData: false,
       contentType: false,
       success: function(data){
-          $('#fileName').val(data.data);
+          $('#fileName2').val(data.data);
       },
       fail: function (data) {
           console.log(data, 'failed');
@@ -45,12 +45,12 @@ $('#uploadInput').on('change', function () {
             percentComplete = parseInt(percentComplete * 100);
 
             // update the Bootstrap progress bar with the new percentage
-            $('#progressBar').text(percentComplete + '%');
-            $('#progressBar').width(percentComplete + '%');
+            $('#progressBar2').text(percentComplete + '%');
+            $('#progressBar2').width(percentComplete + '%');
 
             // once the upload reaches 100%, set the progress bar text to done
             if (percentComplete === 100) {
-              $('#progressBar').html('Done');
+              $('#progressBar2').html('Done');
             }
 
           }
