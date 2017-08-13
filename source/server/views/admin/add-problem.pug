@@ -20,6 +20,10 @@ block main-content
                     option(value=contest._id) #{contest.title}
 
             br
+            label(for="description") Description
+            textarea(id="description" name="description" class="form-control") It has LOWER priority than "Description as file"
+
+            br
             label(for="upload-input") Description as file (pdf, doc, docx, html, md)*
             include ./uploadForm
             +uploadForm('progressBar', 'uploadBtn', 'uploadInput', 'fileName')

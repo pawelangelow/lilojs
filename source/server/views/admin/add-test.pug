@@ -26,13 +26,13 @@ block main-content
 
           br
           label(for="input") Input
-          textarea(id="input" name="input" class="form-control") The input of the test. It has priority over input with file!
+          textarea(id="input" name="input" class="form-control") The input of the test. It has LOWER priority over "input with file"!
 
           include ./uploadForm
           +uploadForm('progressBar', 'uploadBtn', 'uploadInput', 'fileName')
 
           label(for="output") Output
-          textarea(id="output" name="output" class="form-control") The output of the test. It has priority over output with file!
+          textarea(id="output" name="output" class="form-control") The output of the test. It has LOWER priority over "output with file"!
 
           +uploadForm('progressBar2', 'uploadBtn2', 'uploadInput2', 'fileName2')
 
