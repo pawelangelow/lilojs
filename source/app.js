@@ -3,6 +3,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const port = 3000;
 
 app.set('views', path.join(__dirname, 'server', 'views'));
 app.set('view engine', 'pug');
@@ -12,8 +13,8 @@ require(path.join(__dirname, 'server', 'data'))('mongodb://localhost:27017/liloj
 require(path.join(__dirname, 'server', 'middlewares'))(app);
 require(path.join(__dirname, 'server', 'controllers'))(app);
 
-app.listen(3000, function() {
+app.listen(port, function() {
 	/* eslint-disable no-console */
-	console.log('Listening on port 3000...');
+	console.log(`Listening on port ${port}...`);
 	/* eslint-enable no-console */
 });
