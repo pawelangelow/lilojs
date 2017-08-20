@@ -1,12 +1,14 @@
 'use strict';
 
 const router = require('express').Router();
+
+const contestService = require('../services/contest');
 const problemService = require('../services/problem');
 
 const utils = require('../utilities');
 const pathResolver = utils.getViewName;
 const onlyForAdmins = utils.onlyForAdmin;
-const categories = ['Exam', 'Homework'];
+const categories = contestService.categories;
 
 module.exports = router;
 
@@ -26,10 +28,14 @@ router.get('/addContest', onlyForAdmins, (req, res) => {
 
 router.get('/addProblem', onlyForAdmins, (req, res) => {
 	const viewName = pathResolver(__filename, ['add-problem']);
-	res.render(viewName, {
-		contests: [{title: 'get this from service', _id: '123'}],
-		allowedLanguages: ['C++', 'JS']
-	});
+	contestService
+		.listContest({pageSize: 25, order: 'desc'})
+		.then((contests) => {
+			res.render(viewName, {
+				contests: contests,
+				allowedLanguages: ['C++', 'JS']
+			});
+		});
 });
 
 router.get('/addTest', onlyForAdmins, (req, res) => {
@@ -51,9 +57,37 @@ router.get('/getProblems/:id', onlyForAdmins, (req, res) => {
 		});
 });
 
+router.post('/addContest', onlyForAdmins, (req, res) => {
+	const body = req.body;
+	contestService
+		.addNewContest(body, req.user)
+		.then((result) => {
+			// TODO: Think where should admin be redirected
+			// req.session.success = '<a href="#">Here</a>';
+			// res.redirect('/admin/addContest');
+			console.log(result);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
 router.post('/addProblem', onlyForAdmins, (req, res) => {
 	const body = req.body;
-	console.log(body);
+	const model = {
+		title: body.title,
+		description: body.description,
+		descriptionPath: body.fileName,
+		allowedLanguages: body.allowedLanguages
+	};
+	problemService
+		.addNewProblem(model, body.contest)
+		.then((result) => {
+			console.log(result);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
 router.post('/addTest', onlyForAdmins, (req, res) => {
