@@ -4,6 +4,7 @@ const router = require('express').Router();
 
 const contestService = require('../services/contest');
 const problemService = require('../services/problem');
+const testService = require('../services/test');
 
 const utils = require('../utilities');
 const pathResolver = utils.getViewName;
@@ -40,9 +41,13 @@ router.get('/addProblem', onlyForAdmins, (req, res) => {
 
 router.get('/addTest', onlyForAdmins, (req, res) => {
 	const viewName = pathResolver(__filename, ['add-test']);
-	res.render(viewName, {
-		contests: [{title: 'get this from service', _id: '123'}]
-	});
+	contestService
+		.listContest({pageSize: 25, order: 'desc'})
+		.then((contests) => {
+			res.render(viewName, {
+				contests: contests
+			});
+		});
 });
 
 router.get('/getProblems/:id', onlyForAdmins, (req, res) => {
@@ -92,5 +97,15 @@ router.post('/addProblem', onlyForAdmins, (req, res) => {
 
 router.post('/addTest', onlyForAdmins, (req, res) => {
 	const body = req.body;
-	console.log(body);
+	testService
+		.addNewTest(body, req.user)
+		.then((result) => {
+			// TODO: Think where should admin be redirected
+			// req.session.success = '<a href="#">Here</a>';
+			// provide easy way to run the test on authors implementation
+			console.log(result);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });

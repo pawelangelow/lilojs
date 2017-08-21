@@ -33,6 +33,17 @@ exports.addNewProblem = (model, contestId) => {
 
 exports.getProblemsByContestId = (id) => {
 	return new Promise((resolve, reject) => {
-		resolve([{title: 'get this from service', _id: '123'}]);
+		problemData
+			.find({'contest': id})
+			.sort({
+				dateCreated: 'desc'
+			})
+			.exec()
+			.then((result) => {
+				resolve(result);
+			})
+			.catch((err) => {
+				reject(err);
+			});
 	});
 };
