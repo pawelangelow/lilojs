@@ -30,7 +30,11 @@ router.get('/addContest', onlyForAdmins, (req, res) => {
 router.get('/addProblem', onlyForAdmins, (req, res) => {
 	const viewName = pathResolver(__filename, ['add-problem']);
 	contestService
-		.listContest({pageSize: 25, order: 'desc'})
+		.listContest({
+			pageSize: 25,
+			order: 'desc',
+			showAll: true
+		})
 		.then((contests) => {
 			res.render(viewName, {
 				contests: contests,
@@ -42,7 +46,11 @@ router.get('/addProblem', onlyForAdmins, (req, res) => {
 router.get('/addTest', onlyForAdmins, (req, res) => {
 	const viewName = pathResolver(__filename, ['add-test']);
 	contestService
-		.listContest({pageSize: 25, order: 'desc'})
+		.listContest({
+			pageSize: 25,
+			order: 'desc',
+			showAll: true
+		})
 		.then((contests) => {
 			res.render(viewName, {
 				contests: contests

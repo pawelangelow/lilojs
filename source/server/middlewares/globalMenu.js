@@ -1,16 +1,23 @@
 'use strict';
 
-module.exports.priority = 3;
+const contestService = require('../services/contest');
 
-module.exports.load = (app) => {
+exports.priority = 3;
+
+// TODO: Cache
+exports.load = (app) => {
 	app.use((req,res,next) => {
-		res.locals.menuItems = [{
-			id: 1,
-			title: 'Mock menu 1'
-		}, {
-			id: 2,
-			title: 'Mock menu 2'
-		}];
-		next();
+		res.locals.menuItems = [];
+		contestService
+			.listContest({pageSize: 15, order: 'desc'})
+			.then((contests) => {
+				contests.forEach((contest) => {
+					res.locals.menuItems.push({
+						id: contest._id,
+						title: contest.title
+					});
+				});
+				next();
+			});
 	});
 };

@@ -34,9 +34,17 @@ exports.listContest = (options) => {
 
 		const page = options.page || 1;
 		const pageSize = options.pageSize || 10;
+		const isAll = options.showAll || false;
+		let filterQuery = {};
+		if (!isAll) {
+			filterQuery = {
+				'startDate': { '$lt': new Date() },
+				$or:[{'endDate' : {'$gte': new Date() }}, {'canPractice': true}]
+			};
+		}
 
 		contestData
-			.find({})
+			.find(filterQuery)
 			.sort({
 				dateCreated: 'desc'
 			})
