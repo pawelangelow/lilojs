@@ -47,3 +47,17 @@ exports.getProblemsByContestId = (id) => {
 			});
 	});
 };
+
+exports.getProblemById = (id) => {
+	return new Promise ((resolve, reject) => {
+		problemData
+			.findById(id)
+			.exec()
+			.then((result) => {
+				resolve(result);
+			})
+			.reject((err) => {
+				reject(err);
+			});
+	});
+};

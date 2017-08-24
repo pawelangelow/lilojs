@@ -3,15 +3,17 @@
 const router = require('express').Router();
 const pathResolver = require('../utilities').getViewName;
 
+const problems = require('../services/problem');
+
 module.exports = router;
 
-router.get('/:id/:title', (req, res) => {
+router.get('/:id', (req, res) => {
 	const id = req.params.id;
-	const title = req.params.title;
 	const viewPath = pathResolver(__filename, ['index']);
 
-	res.render(viewPath, {
-		id,
-		title
-	});
+	problems
+		.getProblemById(id)
+		.then((result) => {
+			res.render(viewPath, result);
+		});
 });
