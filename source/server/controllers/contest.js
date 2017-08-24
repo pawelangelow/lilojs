@@ -2,17 +2,24 @@
 
 const router = require('express').Router();
 const pathResolver = require('../utilities').getViewName;
+const contests = require('../services/contest');
+const problems = require('../services/problem');
 
 module.exports = router;
 
 router.get('/:id/:title', (req, res) => {
 	const id = req.params.id;
-	const title = req.params.title;
 	const viewPath = pathResolver(__filename, ['single']);
 
-	res.render(viewPath, {
-		id,
-		title
+	Promise.all([
+		contests.getContestById(id),
+		problems.getProblemsByContestId(id)
+	]).then(values => {
+		const [info, problems] = values;
+		res.render(viewPath, {
+			contest: info,
+			problems
+		});
 	});
 });
 

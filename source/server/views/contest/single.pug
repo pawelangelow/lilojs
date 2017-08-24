@@ -1,6 +1,34 @@
 extends ../shared/layout
 
 block main-content
-    div.jumbotron.text-center
-      h1= title
-      h3 This is contest with id #{id}
+  h2 #{contest.title}
+  br
+  if contest.description.length !== 0
+    blockquote
+      p
+        | #{contest.description}
+
+  br
+
+  if problems.length !== 0
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th #
+          th Problem
+          th Result
+          th Solve
+      tbody
+        each problem, i in problems
+          tr
+            td #{i+1}
+            td #{problem.title}
+            td
+              .progress.progress-striped.centered
+                //- TODO: Make this % real
+                .progress-bar.progress-bar-success(style='width: 60%')
+            td
+              a.btn.btn-primary.btn-sm(href='/problem/solve/' + problem._id) Solve
+  else
+    div
+      p There are no problems in this contest.

@@ -30,3 +30,13 @@ footer {
 .upload-input {
   display: none !important;
 }
+
+table td {
+  vertical-align: middle !important;
+  position: relative;
+}
+
+.centered {
+  margin-top: auto;
+  margin-bottom: auto;
+}
