@@ -16,17 +16,12 @@ block main-content
         tr
           th #
           th Problem
-          th Result
           th Solve
       tbody
         each problem, i in problems
           tr
             td #{i+1}
             td #{problem.title}
-            td
-              .progress.progress-striped.centered
-                //- TODO: Make this % real
-                .progress-bar.progress-bar-success(style='width: 60%')
             td
               a.btn.btn-primary.btn-sm(href='/problem/' + problem._id) Solve
   else

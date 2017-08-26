@@ -1,21 +1,21 @@
 extends ../shared/layout
 
 block main-content
-  h2= title
+  h2= problem.title
   ul.breadcrumb
     li
       a(href='/') Home
     li
-      a(href='/contest/' + contest) Contest
-    li.active= title
+      a(href='/contest/' + problem.contest) Contest
+    li.active= problem.title
 
   h4 Best result
   .row
-    .col-md-11
+    .col-md-9.col-md-offset-1
       .progress
-        .progress-bar.progress-bar-success(style='width: 40%')
+        .progress-bar.progress-bar-success(style='width: ' + score + '%')
     .col-md-1
-      span 40/100
+      span #{score}/100
 
   form(method="post" class="form-horizontal")
     div(class="col-md-12")
@@ -25,55 +25,27 @@ block main-content
       input(type="submit" class="btn btn-lg btn-primary" value="Submit code")
       hr
 
-  .row
-    .col-md-offset-2.col-md-8
-      h4 Submissions
-      table.table.table-striped.table-hover
-        thead
-          tr
-            th #
-            th Submission
-            th Date and time
-            th Points
-        tbody
-          tr
-            td 1
-            td
-              a(href="/submission/3") Column content
-            td Column content
-            td Column content
-          tr
-            td 2
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 3
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 4
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 5
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 6
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 7
-            td Column content
-            td Column content
-            td Column content
-      ul.pager
-        li.disabled
-          a(href='#') Previous
-        li
-          a(href='#') Next
+  if submissions.length > 0
+    .row
+      .col-md-offset-2.col-md-8
+        h4 Submissions
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th #
+              th Submission
+              th Date and time
+              th Points
+          tbody
+            each submission, i in submissions
+              tr
+                td #{i+1}
+                td
+                  a(href="/submission/" + submission._id) Submission
+                td #{moment(submission.submitedOn).format('hh:mm:ss, MMMM Do YYYY')}
+                td #{submission.points}
+        //- ul.pager
+        //-   li.disabled
+        //-     a(href='#') Previous
+        //-   li
+        //-     a(href='#') Next

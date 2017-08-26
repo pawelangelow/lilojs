@@ -7,14 +7,14 @@ const problems = require('../services/problem');
 
 module.exports = router;
 
-router.get('/:id/:title', singleContest);
-router.get('/:id', singleContest);
-
 router.get('/all', (req, res) => {
 	const viewPath = pathResolver(__filename, ['all']);
 
 	res.render(viewPath);
 });
+
+router.get('/:id/:title', singleContest);
+router.get('/:id', singleContest);
 
 function singleContest(req, res) {
 	const id = req.params.id;
