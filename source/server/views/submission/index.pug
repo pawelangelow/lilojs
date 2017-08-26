@@ -9,65 +9,40 @@ block main-content
     li
       a(href='#') Problem
     li.active Submission
-
+  //- TODO: Implement different type of code submitted e.g. archive for downlaod, file for download...
   fieldset.backgrounded
-    textarea(id="code" class="form-control code-shower" name="code")
+    textarea(id="code" class="form-control code-shower" name="code") #{submission.sourceCode}
 
   br
 
-  .row
-    .col-md-offset-2.col-md-8
-      h4 Tests
-      table.table.table-striped.table-hover
-        thead
-          tr
-            th #
-            th Date and time
-            th Status
-            th Review
-        tbody
-          tr
-            td 2
-            td Column content
-            td Column content
-            td
-              a(href='#profile', data-toggle='tab', aria-expanded='false') Profile
-          tr
-            td 3
-            td Column content
-            td Column content
-            td
-              a(href='#home', data-toggle='tab', aria-expanded='true') Home
-          tr
-            td 4
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 5
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 6
-            td Column content
-            td Column content
-            td Column content
-          tr
-            td 7
-            td Column content
-            td Column content
-            td Column content
-      #myTabContent.tab-content
-        #home.tab-pane.fade
-          h4 Results for test #3
-          p
-            | Input data:
-            span.text-danger    1 2 3
-          p
-            | Output data:
-            span.text-danger    6
-        #profile.tab-pane.fade
-          h4 Results for test #4
-          p.text-danger
-            | Test information is not allowed to be seen!
+  if testResults.length > 0
+    .row
+      .col-md-offset-2.col-md-8
+        h4 Tests
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th #
+              th Date and time
+              th Status
+              th Review
+          tbody
+            each testResult, i in testResults
+              tr
+                td #{i+1}
+                td #{moment(testResult.createdOn).format('hh:mm:ss, MMMM Do YYYY')}
+                td #{testResult.result}
+                td
+                  a(href='#testResult' + (i+1), data-toggle='tab', aria-expanded='false') See details
+
+        #myTabContent.tab-content
+          each testResult, i in testResults
+            div(id='testResult' + (i + 1)).tab-pane.fade
+              //- TODO: Some tests will come from file, make sure this works...
+              h4 Results for test ##{i+1}
+              p
+                | Input data:
+                span.text-danger    #{testResult.test.input}
+              p
+                | Output data:
+                span.text-danger    #{testResult.test.output}
