@@ -3,11 +3,11 @@ extends ../shared/layout
 block main-content
   ul.breadcrumb
     li
-      a(href='#') Home
+      a(href='/') Home
     li
-      a(href='#') Contest
+      a(href='/contest/' + submission.problem.contest) Contest
     li
-      a(href='#') Problem
+      a(href='/problem/' + submission.problem._id) Problem
     li.active Submission
   //- TODO: Implement different type of code submitted e.g. archive for downlaod, file for download...
   fieldset.backgrounded

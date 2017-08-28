@@ -72,6 +72,7 @@ exports.getSubmissionById = (id) => {
 	return new Promise ((resolve, reject) => {
 		submissionData
 			.findById(id)
+			.populate('problem')
 			.exec()
 			.then((result) => {
 				resolve(result);
