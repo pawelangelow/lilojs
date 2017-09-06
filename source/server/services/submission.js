@@ -1,11 +1,11 @@
 'use strict';
 
 const submissionData = require('mongoose').model('Submission');
+const queue = require('mongoose').model('QueueEntry');
 
 exports.addNewSubmission = (model, user) => {
 	return new Promise((resolve, reject) => {
 		//TODO: Model validation
-		console.log(user);
 
 		model.submiter = user;
 		model.submitedOn = new Date();
@@ -15,6 +15,10 @@ exports.addNewSubmission = (model, user) => {
 		submissionData.create(model)
 			.then((result) => {
 				resolve(result);
+				queue.create({
+					submission: result._id,
+					priority: 5
+				});
 			})
 			.catch((err) => {
 				reject(err);
@@ -36,7 +40,6 @@ exports.calculateResult = (problemId, userToCheck) => {
 			})
 			.exec()
 			.then((result) => {
-				console.log(result);
 				if (result.length !== 0) {
 					resolve(result[0].points);
 				} else {
@@ -76,6 +79,22 @@ exports.getSubmissionById = (id) => {
 			.exec()
 			.then((result) => {
 				resolve(result);
+			})
+			.reject((err) => {
+				reject(err);
+			});
+	});
+};
+
+exports.updateSubmissionPointsById = (id, points) => {
+	return new Promise ((resolve, reject) => {
+		submissionData
+			.findById(id)
+			.exec()
+			.then((result) => {
+				result.points = points;
+				result.save();
+				resolve(true);
 			})
 			.reject((err) => {
 				reject(err);

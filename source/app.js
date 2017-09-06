@@ -12,6 +12,7 @@ app.use(express.static(__dirname + '/public'));
 require(path.join(__dirname, 'server', 'data'))('mongodb://localhost:27017/lilojs');
 require(path.join(__dirname, 'server', 'middlewares'))(app);
 require(path.join(__dirname, 'server', 'controllers'))(app);
+require(path.join(__dirname, 'server', 'services', 'executor', 'bootstrap'));
 
 app.listen(port, function() {
 	/* eslint-disable no-console */
