@@ -29,18 +29,21 @@ router.get('/addContest', onlyForAdmins, (req, res) => {
 
 router.get('/addProblem', onlyForAdmins, (req, res) => {
 	const viewName = pathResolver(__filename, ['add-problem']);
-	contestService
-		.listContest({
-			pageSize: 25,
-			order: 'desc',
-			showAll: true
-		})
-		.then((contests) => {
-			res.render(viewName, {
-				contests: contests,
-				allowedLanguages: ['C++', 'JS']
-			});
+	Promise.all([
+		contestService
+			.listContest({
+				pageSize: 25,
+				order: 'desc',
+				showAll: true
+			}),
+		problemService.getAllowedLanguages()
+	]).then(values => {
+		const [contests, allowedLanguages] = values;
+		res.render(viewName, {
+			contests,
+			allowedLanguages
 		});
+	});
 });
 
 router.get('/addTest', onlyForAdmins, (req, res) => {
@@ -74,14 +77,13 @@ router.post('/addContest', onlyForAdmins, (req, res) => {
 	const body = req.body;
 	contestService
 		.addNewContest(body, req.user)
-		.then((result) => {
-			// TODO: Think where should admin be redirected
-			// req.session.success = '<a href="#">Here</a>';
-			// res.redirect('/admin/addContest');
-			console.log(result);
+		.then(() => {
+			req.session.success = 'Contest was created successfully! Here you can enter some problem to it.';
+			res.redirect('/admin/addProblem');
 		})
 		.catch((err) => {
-			console.log(err);
+			req.session.error = err;
+			res.redirect('/admin/addContest');
 		});
 });
 
@@ -95,11 +97,13 @@ router.post('/addProblem', onlyForAdmins, (req, res) => {
 	};
 	problemService
 		.addNewProblem(model, body.contest)
-		.then((result) => {
-			console.log(result);
+		.then(() => {
+			req.session.success = 'Problem was created successfully! Here you can enter some test to it.';
+			res.redirect('/admin/addTest');
 		})
 		.catch((err) => {
-			console.log(err);
+			req.session.error = err;
+			res.redirect('/admin/addProblem');
 		});
 });
 
@@ -107,13 +111,13 @@ router.post('/addTest', onlyForAdmins, (req, res) => {
 	const body = req.body;
 	testService
 		.addNewTest(body, req.user)
-		.then((result) => {
-			// TODO: Think where should admin be redirected
-			// req.session.success = '<a href="#">Here</a>';
-			// provide easy way to run the test on authors implementation
-			console.log(result);
+		.then(() => {
+			// TODO: implement try solution
+			req.session.success = 'Test was created successfully! <a href="/admin/runTest">Here you can try your solution</a> or enter another one.';
+			res.redirect('/admin/addTest');
 		})
 		.catch((err) => {
-			console.log(err);
+			req.session.error = err;
+			res.redirect('/admin/addTest');
 		});
 });

@@ -1,7 +1,10 @@
 'use strict';
 
+const path = require('path');
+
 const problemData = require('mongoose').model('Problem');
-const contestService = require('../services/contest');
+const contestService = require('./contest');
+const utils = require('../utilities');
 
 exports.addNewProblem = (model, contestId) => {
 	if (!model.descriptionPath) {
@@ -59,5 +62,20 @@ exports.getProblemById = (id) => {
 			.reject((err) => {
 				reject(err);
 			});
+	});
+};
+
+exports.getAllowedLanguages = () => {
+	return new Promise ((resolve, reject) => {
+		const runners = [];
+		utils.getFilesFromDir(path.join(__dirname, 'executor', 'runners'), file => {
+			runners.push(file);
+		});
+
+		if (runners.length === 0) {
+			reject('There is no runners!');
+		}
+
+		resolve(runners);
 	});
 };
