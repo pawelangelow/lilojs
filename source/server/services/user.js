@@ -40,14 +40,21 @@ exports.registerUser = (inputModel) => {
 	model.salt = encryption.generateSalt();
 	model.hashPass = encryption.generateHashedPassword(model.salt, model.password);
 
-	return userData
-		.create(model)
-		.then(() => {
-			return true;
-		})
-		.catch((err) => {
-			return [err];
-		});
+	return new Promise ((resolve, reject) => {
+		userData
+			.create(model)
+			.then(() => {
+				resolve(true);
+			})
+			.catch((err) => {
+				let thrownError = err.errmsg;
+				if (err.code === 11000) {
+					thrownError = 'There is user registered with this information';
+				}
+
+				reject([thrownError]);
+			});
+	});
 };
 
 exports.loginUser = (username, password) => {
