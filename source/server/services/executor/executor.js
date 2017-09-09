@@ -3,11 +3,11 @@
 const dbService = require('../../data');
 const EventEmitter = require('events');
 const path = require('path');
+const configuration = require('../../configuration');
 
 class Executor extends EventEmitter {
 	constructor(id) {
-		// TODO: extract this somewhere => probably config file with everything configuriruable
-		dbService('mongodb://localhost:27017/lilojs');
+		dbService(configuration.dbString);
 		super();
 		this._id = id;
 

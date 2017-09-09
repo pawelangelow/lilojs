@@ -7,6 +7,7 @@ const pathResolver = utils.getViewName;
 const userService = require('../services/user');
 const onlyForLoggedIn = utils.onlyForLoggedIn;
 const pathPrefix = '/' + pathResolver(__filename, []);
+const configuration = require('../configuration');
 
 module.exports = router;
 
@@ -38,13 +39,12 @@ router.post('/', onlyForLoggedIn, (req, res) => {
 			errorMessage: 'Passwords do not match!',
 			start: 'credentials'
 		});
-	} else if (updatedData.password && updatedData.password.length <= 4) {
-		// TODO: Extract magic numbers to constants
+	} else if (updatedData.password && updatedData.password.length <= configuration.registrationConstants.passwordMinLength) {
 		const model = Object.assign({}, updatedData);
 
 		res.render(viewName, {
 			user: model,
-			errorMessage: 'Password should be more than 4 symbols!',
+			errorMessage: `Password should be more than ${configuration.registrationConstants.passwordMinLength} symbols!`,
 			start: 'credentials'
 		});
 	} else {

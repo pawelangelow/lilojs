@@ -37,8 +37,6 @@ router.post('/:id', (req, res) => {
 	model.language = 'js';
 	model.problemId = id;
 
-	// TODO: Create code execution queue, etc...
-
 	submissions
 		.addNewSubmission(model, req.user)
 		.then((result) => {

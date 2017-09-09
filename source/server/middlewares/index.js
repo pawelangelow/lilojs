@@ -18,5 +18,3 @@ module.exports = function (app) {
 		require(`./${file.name}`).load(app);
 	});
 };
-
-// TODO: add good tests for this

@@ -5,6 +5,8 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const userService = require('../services/user');
 
+const configuration = require('../configuration');
+
 module.exports.priority = 2;
 
 passport.use(new Strategy(getUser));
@@ -16,8 +18,7 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser(getById);
 
 module.exports.load = (app) => {
-	// TODO: extract this to configuration file
-	app.use(session({secret: 'some secret token', resave: true, saveUninitialized: true}));
+	app.use(session({secret: configuration.sessionToken, resave: true, saveUninitialized: true}));
 
 	app.use(passport.initialize());
 	app.use(passport.session());
