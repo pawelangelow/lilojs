@@ -7,7 +7,11 @@ const { fork } = require('child_process');
 
 class Scheduler {
 	constructor() {
-		dbService(configuration.dbString);
+		dbService(configuration.dbString, {
+			loadOnlySpecified: ['queue', 'submission'],
+			skipMessages: true
+		});
+
 		this._workers = [];
 		this._availableWorkers = [];
 		this.queueService = require('../queue');
@@ -36,7 +40,6 @@ class Scheduler {
 	work() {
 		setInterval(() => {
 			const availableWorker = this._availableWorkers.indexOf(true);
-
 			if (availableWorker !== -1) {
 				this.queueService
 					.getQueueEntryAndDeleteIt()
@@ -46,7 +49,8 @@ class Scheduler {
 							this._availableWorkers[availableWorker] = false;
 							this._workers[availableWorker].send(entry.submission);
 						}
-					});
+					})
+					.catch(err => console.log(err));
 			}
 		}, 100);
 	}

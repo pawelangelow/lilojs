@@ -7,7 +7,9 @@ const configuration = require('../../configuration');
 
 class Executor {
 	constructor() {
-		dbService(configuration.dbString);
+		dbService(configuration.dbString, {
+			skipMessages: true
+		});
 		this.submissionService = require('../submission');
 	}
 

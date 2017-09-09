@@ -4,7 +4,10 @@
 const mongoose = require('mongoose');
 const getFilesFromDir = require('../utilities').getFilesFromDir;
 
-module.exports = (dbConfig) => {
+module.exports = (dbConfig, options = {}) => {
+	options.skipMessages = options.skipMessages || false;
+	const showMessages = !options.skipMessages;
+
 	mongoose.connect(dbConfig, {
 		useMongoClient: true
 	});
@@ -15,16 +18,28 @@ module.exports = (dbConfig) => {
 			console.log('Database could not be opened: ' + err);
 			return;
 		}
-
-		console.log('Database up and running...');
+		if (showMessages) {
+			console.log('Database up and running...');
+		}
 	});
 
 	db.on('error', function (err) {
 		console.log('Database error: ' + err);
 	});
 
-	getFilesFromDir(__dirname, (filename) => {
-		require('./' + filename).init();
-		console.log(filename + ' model was loaded.');
-	});
+	if (options.loadOnlySpecified) {
+		options.loadOnlySpecified.forEach(fileName => {
+			require('./' + fileName).init();
+			if (showMessages) {
+				console.log(fileName + ' model was loaded.');
+			}
+		});
+	} else {
+		getFilesFromDir(__dirname, (filename) => {
+			require('./' + filename).init();
+			if (showMessages) {
+				console.log(filename + ' model was loaded.');
+			}
+		});
+	}
 };
