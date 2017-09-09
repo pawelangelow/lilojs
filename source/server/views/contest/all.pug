@@ -1,6 +1,19 @@
 extends ../shared/layout
 
 block main-content
-    div.jumbotron.text-center
-      h1 All contests here
-      h3 Ordering somehow
+    if contests.length > 0
+      .row
+        .col-md-offset-2.col-md-8
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th Contest
+            tbody
+              each contest, i in contests
+                tr
+                  td
+                    a(href="/contest/" + contest._id) #{contest.title}
+    else
+      div.jumbotron.text-center
+        h1 There are no contests to show
+        h3 If you think there is a problem, please contact our administrator!

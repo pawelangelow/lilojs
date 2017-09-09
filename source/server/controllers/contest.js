@@ -9,8 +9,18 @@ module.exports = router;
 
 router.get('/all', (req, res) => {
 	const viewPath = pathResolver(__filename, ['all']);
-
-	res.render(viewPath);
+	// TODO: make all contests visible for administrator
+	// TODO: add paging
+	// TODO: add search, sorting, etc..
+	contests
+		.listContest({
+			pageSize: 100
+		})
+		.then(contests => {
+			res.render(viewPath, {
+				contests
+			});
+		});
 });
 
 router.get('/:id/:title', singleContest);
