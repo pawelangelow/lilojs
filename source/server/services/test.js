@@ -1,6 +1,7 @@
 'use strict';
 
 const testData = require('mongoose').model('Test');
+const problemData = require('mongoose').model('Problem');
 
 exports.addNewTest = (model, user) => {
 	return new Promise((resolve, reject) => {
@@ -27,3 +28,16 @@ exports.addNewTest = (model, user) => {
 	});
 };
 
+exports.getTestsByProblemId = (problemId) => {
+	return new Promise ((resolve, reject) => {
+		testData
+			.find({'problem': problemId})
+			.exec()
+			.then((result) => {
+				resolve(result);
+			})
+			.reject((err) => {
+				reject(err);
+			});
+	});
+};

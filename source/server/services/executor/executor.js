@@ -11,26 +11,23 @@ class Executor {
 			skipMessages: true
 		});
 		this.submissionService = require('../submission');
+		this.testService = require('../test');
 	}
 
-	processSubmission(submissionId) {
-		this.submissionService
-			.getSubmissionById(submissionId)
-			.then(submission => {
-				if (!submission) {
-					this.requestSubmission();
-					return;
-				}
+	async processSubmission(submissionId) {
+		const submission = await this.submissionService.getSubmissionById(submissionId);
+		const tests = await this.testService.getTestsByProblemId(submission.problem._id);
+		if (tests.length === 0) {
+			//TODO: log this somewhere
+			console.log('There are no tests...');
+			this.requestSubmission();
+			return;
+		}
+		const runner = require(path.join(__dirname, 'runners', submission.language));
+		const result = await runner.runCode(submission.sourceCode, tests);
 
-				const runner = require(path.join(__dirname, 'runners', submission.language));
-				runner
-					.runCode(submission.sourceCode)
-					.then(result => {
-						this.submissionService.updateSubmissionPointsById(submission._id, result)
-							.then(() => this.requestSubmission())
-							.catch(() => this.requestSubmission());
-					});
-			});
+		await this.submissionService.updateSubmissionPointsById(submission._id, result);
+		this.requestSubmission();
 	}
 
 	requestSubmission(timeout = 100) {

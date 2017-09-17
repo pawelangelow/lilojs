@@ -3,14 +3,24 @@
 const submissionData = require('mongoose').model('Submission');
 const queue = require('mongoose').model('QueueEntry');
 
+const path = require('path');
+const utils = require('../utilities');
+
 exports.addNewSubmission = (model, user) => {
-	return new Promise((resolve, reject) => {
+	return new Promise(async function (resolve, reject) {
 		//TODO: Model validation
+		const solutionsPath = path.resolve(__dirname, '..', '..', '..', 'resources', 'submissions');
+		const dirName = utils.generateRandomId(40);
+		const directoryForSaving = path.join(solutionsPath, dirName);
+
+		utils.createDirSync(directoryForSaving);
+		await utils.createFileAt(model.sourceCode, path.join(directoryForSaving, `index.${model.language}`));
 
 		model.submiter = user;
 		model.submitedOn = new Date();
 		model.points = 0;
 		model.problem = model.problemId;
+		model.sourceCode = directoryForSaving;
 
 		submissionData.create(model)
 			.then((result) => {

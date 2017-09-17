@@ -1,5 +1,9 @@
-const path = require('path');
 const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const Promise = require('bluebird');
+
+const writeFile = Promise.promisify(require('fs').writeFile);
 
 module.exports.getViewName = (filename, extra) => {
 	// TODO: Make sure this will work with single value for "extra"
@@ -72,4 +76,14 @@ exports.createDirSync = (dirPath) => {
 
 		return curDir;
 	}, initDir);
+};
+
+exports.createRandomDir = () => {
+	const thePath = path.join(os.tmpdir(), this.generateRandomId(10));
+	this.createDirSync(thePath);
+	return thePath;
+};
+
+exports.createFileAt = (content, path) => {
+	return writeFile(path, content);
 };
