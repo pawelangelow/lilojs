@@ -6,10 +6,14 @@ const exec = util.promisify(require('child_process').exec);
 const utilities = require('../../../utilities');
 
 exports.runCode = (codeDir, tests) => {
-	return new Promise(async function (resolve){
-		// const jsDockerDir = path.resolve(__dirname, '..', '..', '..', 'docker', 'js');
-		// execSync(`docker build -t nodejs-runner ${jsDockerDir}`);
-		// console.log(`docker build -t nodejs-runner ${jsDockerDir}`);
+	// TODO: Extract base logic to some class
+	return new Promise(async (resolve) => {
+		// Builds the docker image needed to run container
+		// If it is already build, the command runs very fast
+		const jsDockerDir = path.resolve(__dirname, '..', '..', '..', 'docker', 'js');
+		await exec(`docker build -t nodejs-runner ${jsDockerDir}`);
+
+		// Execute the solution with the tests in the container
 		try {
 			const pointCoeff = 100 / tests.length;
 			let points = 0;
@@ -23,6 +27,7 @@ exports.runCode = (codeDir, tests) => {
 					points += pointCoeff;
 				}
 			}
+			await utilities.truncateSolutionDir(codeDir, 'js');
 			resolve(points);
 		} catch (err) {
 			resolve(0);

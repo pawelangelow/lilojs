@@ -1,9 +1,6 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const os = require('os');
 const path = require('path');
-const Promise = require('bluebird');
-
-const writeFile = Promise.promisify(require('fs').writeFile);
 
 module.exports.getViewName = (filename, extra) => {
 	// TODO: Make sure this will work with single value for "extra"
@@ -85,5 +82,27 @@ exports.createRandomDir = () => {
 };
 
 exports.createFileAt = (content, path) => {
-	return writeFile(path, content);
+	return fs.writeFile(path, content);
 };
+
+exports.truncateSolutionDir = (dirPath, language) => {
+	return clearDir(dirPath, [`index.${language}`]);
+};
+
+exports.loadCodeFromFile = (codePath, language) => {
+	// TODO: Handle errors.
+	return fs.readFile(path.join(codePath, `index.${language}`));
+};
+
+function clearDir(dirPath, without = []) {
+	//TODO: add validation and unit tests
+	return new Promise(async (resolve, reject) => {
+		const files = await fs.readdir(dirPath);
+		for (const file of files) {
+			if (without.indexOf(file) === -1) {
+				await fs.unlink(path.join(dirPath, file));
+			}
+		}
+		resolve(true);
+	});
+}
