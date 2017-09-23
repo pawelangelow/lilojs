@@ -11,7 +11,7 @@ exports.getTRBySubmissionId = (submissionId) => {
 			.then((result) => {
 				resolve(result);
 			})
-			.reject((err) => {
+			.catch((err) => {
 				reject(err);
 			});
 	});

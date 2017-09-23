@@ -68,7 +68,7 @@ exports.getContestById = (id) => {
 			.then((result) => {
 				resolve(result);
 			})
-			.reject((err) => {
+			.catch((err) => {
 				reject(err);
 			});
 	});

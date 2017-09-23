@@ -8,6 +8,8 @@ module.exports = (dbConfig, options = {}) => {
 	options.skipMessages = options.skipMessages || false;
 	const showMessages = !options.skipMessages;
 
+	mongoose.Promise = Promise;
+
 	mongoose.connect(dbConfig, {
 		useMongoClient: true
 	});

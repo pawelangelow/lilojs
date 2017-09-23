@@ -2,7 +2,7 @@
 
 const queueEntriesData = require('mongoose').model('QueueEntry');
 
-exports.getQueueEntryAndDeleteIt = () => {
+exports.pop = () => {
 	return new Promise ((resolve, reject) => {
 		queueEntriesData
 			.find({})
@@ -24,7 +24,7 @@ exports.getQueueEntryAndDeleteIt = () => {
 					resolve(null);
 				}
 			})
-			.reject((err) => {
+			.catch((err) => {
 				reject(err);
 			});
 	});

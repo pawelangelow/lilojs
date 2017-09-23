@@ -38,19 +38,15 @@ class Scheduler {
 	}
 
 	work() {
-		setInterval(() => {
+		setInterval(async () => {
 			const availableWorker = this._availableWorkers.indexOf(true);
 			if (availableWorker !== -1) {
-				this.queueService
-					.getQueueEntryAndDeleteIt()
-					.then((entry) => {
-						if (entry) {
-							console.log(`Worker ${availableWorker} is going to work`);
-							this._availableWorkers[availableWorker] = false;
-							this._workers[availableWorker].send(entry.submission);
-						}
-					})
-					.catch(err => console.log(err));
+				const entry = await this.queueService.pop();
+				if (entry) {
+					console.log(`Worker ${availableWorker} is going to work`);
+					this._availableWorkers[availableWorker] = false;
+					this._workers[availableWorker].send(entry.submission);
+				}
 			}
 		}, 100);
 	}

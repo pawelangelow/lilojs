@@ -90,7 +90,7 @@ exports.getSubmissionById = (id) => {
 			.then((result) => {
 				resolve(result);
 			})
-			.reject((err) => {
+			.catch((err) => {
 				reject(err);
 			});
 	});
@@ -106,7 +106,7 @@ exports.updateSubmissionPointsById = (id, points) => {
 				result.save();
 				resolve(true);
 			})
-			.reject((err) => {
+			.catch((err) => {
 				reject(err);
 			});
 	});
