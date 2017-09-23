@@ -13,22 +13,19 @@ const submissions = require('../services/submission');
 
 module.exports = router;
 
-router.get('/:id', onlyForLoggedIn, (req, res) => {
+router.get('/:id', onlyForLoggedIn, async (req, res) => {
 	const id = req.params.id;
 	const viewPath = pathResolver(__filename, ['index']);
 
-	Promise.all([
-		problems.getProblemById(id),
-		submissions.calculateResult(id, req.user),
-		submissions.getSubmissionsByProblemIdAndUserId(id, req.user)
-	]).then(values => {
-		const [info, score, submissions] = values;
-		res.render(viewPath, {
-			problem: info,
-			score,
-			submissions,
-			moment
-		});
+	const problem = await problems.getProblemById(id);
+	const score = await submissions.calculateResult(id, req.user);
+	const userSUbmissions = await submissions.getSubmissionsByProblemIdAndUserId(id, req.user);
+
+	res.render(viewPath, {
+		problem,
+		score,
+		submissions: userSUbmissions,
+		moment
 	});
 });
 
@@ -36,7 +33,6 @@ router.post('/:id', onlyForLoggedIn, (req, res) => {
 	const id = req.params.id;
 	const model = req.body;
 	model.sourceCode = model.code;
-	model.language = 'js';
 	model.problemId = id;
 
 	submissions

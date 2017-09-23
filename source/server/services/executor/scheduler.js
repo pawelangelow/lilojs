@@ -41,14 +41,16 @@ class Scheduler {
 		setInterval(async () => {
 			const availableWorker = this._availableWorkers.indexOf(true);
 			if (availableWorker !== -1) {
+				this._availableWorkers[availableWorker] = false;
 				const entry = await this.queueService.pop();
 				if (entry) {
 					console.log(`Worker ${availableWorker} is going to work`);
-					this._availableWorkers[availableWorker] = false;
 					this._workers[availableWorker].send(entry.submission);
+				} else {
+					this._availableWorkers[availableWorker] = true;
 				}
 			}
-		}, 100);
+		}, 1000);
 	}
 }
 

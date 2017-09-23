@@ -21,6 +21,14 @@ block main-content
     div(class="col-md-12")
       fieldset.backgrounded
         textarea(id="code" class="form-control code-area" name="code")
+      br
+      .form-group
+        label.col-lg-2.control-label(for="language") Programming language
+        .col-lg-10
+          select(id="language" class="form-control" name="language")
+            each lang in problem.allowedLanguages
+              option(value=lang) #{lang}
+
       hr
       input(type="submit" class="btn btn-lg btn-primary" value="Submit code")
       hr
