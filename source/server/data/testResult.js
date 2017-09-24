@@ -9,7 +9,9 @@ module.exports.init = function () {
 		createdOn: { type: Date, required: requiredMessage },
 		submission: { type: Schema.Types.ObjectId, ref: 'Submission'},
 		test: { type: Schema.Types.ObjectId, ref: 'Test'},
-		result: { type: String, require: requiredMessage }
+		result: { type: String, require: requiredMessage },
+		actual: { type: String, require: requiredMessage },
+		expected: { type: String, require: requiredMessage },
 	});
 
 	mongoose.model('TestResult', testResultSchema);

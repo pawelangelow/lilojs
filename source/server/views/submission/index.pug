@@ -44,5 +44,8 @@ block main-content
                 | Input data:
                 span.text-danger    #{testResult.test.input}
               p
-                | Output data:
-                span.text-danger    #{testResult.test.output}
+                | Expected output data:
+                span.text-danger    #{testResult.expected}
+              p
+                | Actual output data:
+                span.text-danger    #{testResult.actual}

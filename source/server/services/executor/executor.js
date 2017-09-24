@@ -12,6 +12,7 @@ class Executor {
 		});
 		this.submissionService = require('../submission');
 		this.testService = require('../test');
+		this.testResultService = require('../testResult');
 	}
 
 	async processSubmission(submissionId) {
@@ -24,7 +25,13 @@ class Executor {
 			return;
 		}
 		const runner = require(path.join(__dirname, 'runners', submission.language));
-		const result = await runner.runCode(submission.sourceCode, tests);
+		const result = await runner.runCode(
+			submission.sourceCode,
+			tests,
+			{
+				submissionId,
+				service: this.testResultService
+			});
 
 		await this.submissionService.updateSubmissionPointsById(submission._id, result);
 		this.requestSubmission();

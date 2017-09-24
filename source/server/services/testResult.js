@@ -17,13 +17,15 @@ exports.getTRBySubmissionId = (submissionId) => {
 	});
 };
 
-exports.addNewTestResult = (submissionId, testId) => {
+exports.addNewTestResult = (submissionId, testId, result) => {
 	return new Promise((resolve, reject) => {
 		const model = {};
 		model.createdOn = new Date();
 		model.submission = submissionId;
 		model.test = testId;
-		model.result = 'UNPROCESSED';
+		model.result = result.status;
+		model.actual = result.actual;
+		model.expected = result.expected;
 
 		//TODO: Model validation
 		testData

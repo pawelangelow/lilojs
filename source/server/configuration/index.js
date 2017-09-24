@@ -10,3 +10,10 @@ exports.registrationConstants = {
 exports.executorsConstants = {
 	executorsCount: require('os').cpus().length
 };
+
+exports.messages = {
+	testResultMessages: {
+		successful: 'SUCCESSFUL',
+		unsuccessful: 'UNSUCCESSFUL'
+	}
+};
