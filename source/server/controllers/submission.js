@@ -18,8 +18,12 @@ router.get('/:id', onlyForLoggedIn, async (req, res) => {
 
 	const testResults = await testResult.getTRBySubmissionId(id);
 	const submission = await submissionService.getSubmissionById(id);
-	const submissionCode = await utils.loadCodeFromFile(submission.sourceCode, submission.language);
-	submission.sourceCode = submissionCode;
+	try {
+		const submissionCode = await utils.loadCodeFromFile(submission.sourceCode, submission.language);
+		submission.sourceCode = submissionCode;
+	} catch (err) {
+		submission.sourceCode = 'Source code is unavailable. If you think this is problem, please contact administrator.';
+	}
 
 	res.render(viewPath, {
 		id,
