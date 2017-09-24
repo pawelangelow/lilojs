@@ -51,7 +51,7 @@ block main-content
                 td
                   a(href="/submission/" + submission._id) Submission
                 td #{moment(submission.submitedOn).format('hh:mm:ss, MMMM Do YYYY')}
-                td #{submission.points}
+                td #{Math.round(submission.points)}
         //- ul.pager
         //-   li.disabled
         //-     a(href='#') Previous
